@@ -31,6 +31,7 @@
 </div>
 <aside class="side">
   <div class="card"><h3>Isi halaman</h3><ul class="toc">{% for h, body in c.sections %}<li><a href="#s{{ loop.index }}">{{ h }}</a></li>{% endfor %}<li><a href="#faq">Pertanyaan umum</a></li></ul></div>
+  {% if guides %}<div class="card"><h3>Panduan terkait</h3><div class="rel">{% for g in guides %}<a href="/panduan/{{ g.slug }}/"><img src="/static/img/il/{{ g.img }}.svg" alt="" width="54" height="36" loading="lazy"><span>{{ g.h1 }}</span></a>{% endfor %}</div></div>{% endif %}
   <div class="card"><h3>Kalkulator terkait</h3><div class="rel">{% for r in related %}<a href="/{{ r.slug }}/"><img src="/static/img/il/{{ r.id }}.svg" alt="" width="54" height="36" loading="lazy"><span>{{ r.short }}</span></a>{% endfor %}</div></div>
   <div class="card note info" style="margin:0">🔒 Semua hitungan berjalan di peramban Anda. Angka yang Anda isi tidak dikirim ke server.</div>
 </aside></div>

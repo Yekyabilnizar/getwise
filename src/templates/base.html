@@ -36,7 +36,7 @@
     <div><a class="brand" href="/"><img src="/static/img/logo.svg" alt="" width="34" height="34"><span>{{ cfg.name1 }}<b>{{ cfg.name2 }}</b></span></a>
       <p>Kalkulator dan panduan keuangan untuk orang Indonesia. Gratis, tanpa daftar, dan semua perhitungan dilakukan di perangkat Anda.</p></div>
     <div><h4>Kalkulator</h4>{% for c in all_calcs %}<a href="/{{ c.slug }}/">{{ c.short }}</a>{% endfor %}</div>
-    <div><h4>Panduan</h4>{% for a in all_articles %}<a href="/panduan/{{ a.slug }}/">{{ a.h1 }}</a>{% endfor %}</div>
+    <div><h4>Panduan</h4>{% for a in foot_articles %}<a href="/panduan/{{ a.slug }}/">{{ a.h1 }}</a>{% endfor %}<a href="/panduan/"><b>Semua panduan →</b></a></div>
     <div><h4>Tentang</h4><a href="/tentang/">Tentang kami</a><a href="/kontak/">Kontak</a><a href="/privasi/">Kebijakan privasi</a><a href="/syarat/">Syarat &amp; penafian</a></div>
   </div>
   <p class="fnote">Hasil perhitungan dan artikel bersifat informasi umum, bukan nasihat keuangan, pajak, atau hukum. Aturan diperbarui per {{ rules_updated }}. © 2026 {{ cfg.name1 }}{{ cfg.name2 }}.</p>
