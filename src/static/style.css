@@ -231,3 +231,17 @@ main{padding:28px 0 40px}
 .guide-cta img,.side-calc img{transition:transform .4s}.guide-cta:hover img{transform:scale(1.06) rotate(-2deg)}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}}
 @media print{.js .rv{opacity:1!important;transform:none!important}.js .chart.rv rect{transform:none!important}}
+/* perbaikan kolom cari: dropdown tidak terpotong */
+.hero.ph{overflow:visible;z-index:5}
+.hbg-w{position:absolute;inset:0;overflow:hidden;z-index:-2}
+.hbg-w .hbg{z-index:auto;will-change:transform}
+.hero.ph:before{pointer-events:none}
+.search{z-index:30}
+.search input{border:2px solid transparent;outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;height:52px}
+.search input:focus{border-color:var(--gold);box-shadow:0 0 0 5px rgba(232,169,12,.25),0 10px 30px rgba(0,0,0,.25)}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none;height:18px;width:18px;cursor:pointer;
+ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%23DCE7E2'/%3E%3Cpath d='M8 8l8 8M16 8l-8 8' stroke='%230B2E26' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.search:before{top:15px;z-index:1}
+.sres{max-height:min(420px,60vh);overflow-y:auto;border:1px solid var(--line);padding:6px;box-shadow:0 24px 48px -12px rgba(0,0,0,.35);animation:fadeUp .18s ease-out}
+.sres a{border:0;border-radius:10px;padding:10px 12px}.sres a+a{margin-top:2px}
+.sres a b{display:block;font-size:.98rem}.sres small{font-size:.84rem;line-height:1.4;margin-top:2px}

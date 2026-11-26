@@ -77,5 +77,15 @@
       box.style.display = 'block';
     });
     document.addEventListener('click', function (e) { if (!e.target.closest('.search')) box.style.display = 'none'; });
+    q.addEventListener('keydown', function (e) {
+      var items = box.querySelectorAll('a[href]'); if (!items.length) return;
+      var cur = box.querySelector('a.act'), i = Array.prototype.indexOf.call(items, cur);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault(); if (cur) cur.classList.remove('act');
+        i = e.key === 'ArrowDown' ? (i + 1) % items.length : (i <= 0 ? items.length - 1 : i - 1);
+        items[i].classList.add('act'); items[i].scrollIntoView({block: 'nearest'});
+      } else if (e.key === 'Enter') { e.preventDefault(); location.href = (cur || items[0]).href; }
+      else if (e.key === 'Escape') { box.style.display = 'none'; }
+    });
   }
 })();
