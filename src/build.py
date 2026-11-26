@@ -11,7 +11,11 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
 
+import re
+
+from articles import ARTICLES, CHARTS
 from content import CALCS, CATS, PAGES
+from photos import photo
 
 ROOT = Path(__file__).resolve().parent
 DIST = ROOT.parent / "dist"
@@ -36,8 +40,23 @@ def main():
     v = str(int(time.time()))
     byid = {c["id"]: c for c in CALCS}
     catmap = {c["id"]: c for c in CATS}
-    search = json.dumps([dict(t=c["short"], k=c["title"] + " " + c["desc"], d=c["card"], u=f"/{c['slug']}/") for c in CALCS], ensure_ascii=False)
-    common = dict(cfg=CONFIG, cats=CATS, v=v, rules_updated=RULES_UPDATED, search=search)
+    ARTICLES_RAW = {a["slug"]: list(a["body"]) for a in ARTICLES}
+    # siapkan artikel: kategori, waktu baca, grafik
+    for a in ARTICLES:
+        a["cat"] = byid[a["calc"]]["cat"]
+        a["cat_name"] = catmap[a["cat"]]["short"]
+        a["body"] = [(h, re.sub(r"\[\[(CH_\w+)\]\]", lambda m: CHARTS[m.group(1)], b)) for h, b in a["body"]]
+        words = len(re.sub(r"<[^>]+>", " ", " ".join(b for _, b in a["body"])).split())
+        a["minutes"] = max(3, round(words / 200))
+        a["chart"] = next((CHARTS[k] for _, b in ARTICLES_RAW[a["slug"]] for k in re.findall(r"\[\[(CH_\w+)\]\]", b)), "")
+    guide_of = {a["calc"]: a for a in ARTICLES}
+    for c in CALCS:
+        c["photo"] = photo(c["id"])
+    for a in ARTICLES:
+        a["photo"] = photo("a-" + a["calc"])
+    search = json.dumps([dict(t=c["short"], k=c["title"] + " " + c["desc"], d=c["card"], u=f"/{c['slug']}/") for c in CALCS]
+                        + [dict(t=a["h1"], k=a["title"] + " " + a["desc"] + " panduan tips", d="Panduan · " + a["cat_name"], u=f"/panduan/{a['slug']}/") for a in ARTICLES], ensure_ascii=False)
+    common = dict(cfg=CONFIG, cats=CATS, v=v, rules_updated=RULES_UPDATED, search=search, all_calcs=CALCS, all_articles=ARTICLES)
     org = {"@context": "https://schema.org", "@type": "WebSite", "name": CONFIG["name1"] + CONFIG["name2"], "url": CONFIG["base"] + "/", "inLanguage": "id-ID"}
     urls = []
 
@@ -48,8 +67,8 @@ def main():
         urls.append(path)
 
     write("/", env.get_template("index.html").render(
-        **common, calcs=CALCS, path="/", page_cat=None, jsonld=[json.dumps(org, ensure_ascii=False)],
-        title="GetWise – Kalkulator PPh 21, Gaji Bersih, BPJS, KPR & Investasi 2026",
+        **common, calcs=CALCS, articles=ARTICLES, p=photo("home"), city=photo("city"), path="/", page_cat=None, jsonld=[json.dumps(org, ensure_ascii=False)],
+        title="GetWise – Kalkulator & Panduan PPh 21, Gaji Bersih, BPJS, KPR, Investasi 2026",
         description="Kalkulator keuangan Indonesia gratis: PPh 21 metode TER, gaji bersih, THR, iuran BPJS, simulasi KPR, kredit kendaraan, deposito, dan investasi. Aturan terbaru 2026."))
 
     for c in CALCS:
@@ -64,18 +83,30 @@ def main():
             {"@type": "ListItem", "position": 2, "name": cat["name"], "item": CONFIG["base"] + "/#" + cat["id"]},
             {"@type": "ListItem", "position": 3, "name": c["short"], "item": CONFIG["base"] + path}]}
         write(path, env.get_template("calc.html").render(
-            **common, c=c, cat=cat, related=[byid[r] for r in c["related"] if r in byid], path=path, page_cat=c["cat"],
+            **common, c=c, cat=cat, related=[byid[r] for r in c["related"] if r in byid], guide=guide_of.get(c["id"]), p=c["photo"], chart=guide_of.get(c["id"], {}).get("chart", ""), path=path, page_cat=c["cat"],
             title=c["title"], description=c["desc"], jsonld=[json.dumps(x, ensure_ascii=False) for x in (ld_app, ld_faq, ld_bc)]))
 
     name = CONFIG["name1"] + CONFIG["name2"]
+    write("/panduan/", env.get_template("guides.html").render(
+        **common, articles=ARTICLES, p=photo("panduan"), path="/panduan/", page_cat="panduan", jsonld=[], title=f"Panduan & Tips Keuangan – {name}",
+        description="Panduan keuangan berbahasa Indonesia: PPh 21 dan TER, slip gaji, THR, BPJS, KPR, kredit kendaraan, deposito, dan investasi rutin."))
+    for a in ARTICLES:
+        path = f"/panduan/{a['slug']}/"
+        ld = {"@context": "https://schema.org", "@type": "Article", "headline": a["title"], "description": a["desc"], "inLanguage": "id-ID",
+              "image": CONFIG["base"] + "/static/img/og.png", "dateModified": "2026-11-27", "author": {"@type": "Organization", "name": name},
+              "publisher": {"@type": "Organization", "name": name, "logo": {"@type": "ImageObject", "url": CONFIG["base"] + "/static/img/icon-512.png"}},
+              "mainEntityOfPage": CONFIG["base"] + path}
+        write(path, env.get_template("article.html").render(
+            **common, a=a, p=a["photo"], calc=byid[a["calc"]], others=[x for x in ARTICLES if x is not a][:5], path=path, page_cat="panduan",
+            title=a["title"], description=a["desc"], jsonld=[json.dumps(ld, ensure_ascii=False)]))
     for slug, (h1, body) in PAGES.items():
         path = f"/{slug}/"
         write(path, env.get_template("page.html").render(
-            **common, path=path, page_cat=None, jsonld=[], h1=h1, title=f"{h1} – {name}", description=f"{h1} {name}, kalkulator keuangan Indonesia.",
+            **common, p=photo("city"), path=path, page_cat=None, jsonld=[], h1=h1, title=f"{h1} – {name}", description=f"{h1} {name}, kalkulator keuangan Indonesia.",
             body=body.format(name=name, email=CONFIG["email"], updated=RULES_UPDATED)))
 
     # 404
-    html = env.get_template("page.html").render(**common, path="/404.html", page_cat=None, jsonld=[], h1="Halaman tidak ditemukan", title=f"Halaman tidak ditemukan – {name}",
+    html = env.get_template("page.html").render(**common, p=photo("city"), path="/404.html", page_cat=None, jsonld=[], h1="Halaman tidak ditemukan", title=f"Halaman tidak ditemukan – {name}",
                                                  description="Halaman tidak ditemukan.", body='<p>Maaf, halaman yang Anda cari tidak ada. Kembali ke <a href="/">beranda</a> untuk melihat semua kalkulator.</p>')
     (DIST / "404.html").write_text(html, encoding="utf-8")
 

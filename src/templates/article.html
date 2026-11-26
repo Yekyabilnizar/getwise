@@ -1,0 +1,27 @@
+{% extends "base.html" %}{% import "_ph.html" as ph %}
+{% block hero %}
+<section class="hero ph">{{ ph.bg(p) }}<div class="wrap hero-grid sm">
+  <div>
+  <div class="crumb"><a href="/">Beranda</a> › <a href="/panduan/">Panduan</a> › {{ a.cat_name }}</div>
+  <h1>{{ a.h1 }}</h1>
+  <p class="lead">{{ a.lead }}</p>
+  <div class="hmeta"><span>🕒 {{ a.minutes }} menit baca</span><span>📅 Diperbarui {{ a.date }}</span></div>
+  </div>
+  <div class="hero-ill" aria-hidden="true"><img src="/static/img/il/{{ a.img }}.svg" alt="" width="240" height="160"></div>
+</div></section>
+{% endblock %}
+{% block content %}
+<div class="calc-grid"><div>
+  <article class="card prose article">
+    <nav class="intoc" aria-label="Daftar isi"><b>Daftar isi</b><ol>{% for h, body in a.body %}<li><a href="#s{{ loop.index }}">{{ h }}</a></li>{% endfor %}</ol></nav>
+    {% for h, body in a.body %}<h2 id="s{{ loop.index }}">{{ h }}</h2>{{ body|safe }}{% endfor %}
+    <a class="guide-cta calc" href="/{{ calc.slug }}/"><img src="/static/img/il/{{ calc.id }}.svg" alt="" width="120" height="80" loading="lazy"><span><small>Coba hitung sendiri</small><b>{{ calc.short }}</b><em>{{ calc.card }} →</em></span></a>
+    {% if a.faq %}<h2>Pertanyaan umum</h2><div class="faq">{% for q, x in a.faq %}<details><summary>{{ q }}</summary><p>{{ x|safe }}</p></details>{% endfor %}</div>{% endif %}
+    <p class="upd">Ditulis oleh tim {{ cfg.name1 }}{{ cfg.name2 }} · Diperbarui {{ a.date }}. Artikel ini bersifat informasi umum, bukan nasihat keuangan, pajak, atau hukum.</p>
+  </article>
+</div>
+<aside class="side">
+  <a class="card side-calc" href="/{{ calc.slug }}/"><img src="/static/img/il/{{ calc.id }}.svg" alt="" width="240" height="160"><b>{{ calc.short }}</b><span>{{ calc.card }}</span><span class="btn">Buka kalkulator</span></a>
+  <div class="card"><h3>Panduan lainnya</h3><div class="rel">{% for r in others %}<a href="/panduan/{{ r.slug }}/"><img src="/static/img/il/{{ r.img }}.svg" alt="" width="54" height="36" loading="lazy"><span>{{ r.h1 }}</span></a>{% endfor %}</div></div>
+</aside></div>
+{% endblock %}

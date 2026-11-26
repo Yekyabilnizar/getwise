@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% import "_ph.html" as ph %}
+{% block hero %}
+<section class="hero ph">{{ ph.bg(p) }}<div class="wrap hero-grid sm">
+  <div><div class="crumb"><a href="/">Beranda</a> › Panduan</div>
+  <h1>Panduan & Tips Keuangan</h1>
+  <p class="lead">Penjelasan sederhana tentang pajak gaji, BPJS, KPR, kredit, deposito, dan investasi, lengkap dengan tips praktis dan kalkulator untuk mencobanya.</p></div>
+  <div class="hero-ill" aria-hidden="true"><img src="/static/img/il/panduan.svg" alt="" width="240" height="160"></div>
+</div></section>
+{% endblock %}
+{% block content %}
+{% for cat in cats %}{% set list = articles|selectattr('cat', 'equalto', cat.id)|list %}{% if list %}
+<div class="cat-h" id="{{ cat.id }}"><h2>{{ cat.name }}</h2><span>{{ cat.desc }}</span></div>
+<div class="grid g4">{% for a in list %}{% include "_acard.html" %}{% endfor %}</div>
+{% endif %}{% endfor %}
+{% endblock %}
