@@ -81,7 +81,7 @@ def lines(labels, series, fmt, title, step=1):
     body = []
     for name, color, vals in series:
         pts = " ".join(f"{L + bw*(i+.5):.1f},{T + ph - ph*v/top:.1f}" for i, v in enumerate(vals))
-        body.append(f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>')
+        body.append(f'<polyline pathLength="1" points="{pts}" fill="none" stroke="{color}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>')
         lx, ly = L + bw * (len(vals) - .5), T + ph - ph * vals[-1] / top
         body.append(f'<circle cx="{lx:.1f}" cy="{ly:.1f}" r="4" fill="{color}"/>')
     return _wrap(s + "".join(body) + _legend(series), title)

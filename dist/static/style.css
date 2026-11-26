@@ -175,3 +175,59 @@ main{padding:28px 0 40px}
 .btn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5);text-decoration:none}.btn.ghost:hover{background:rgba(255,255,255,.12);color:#fff}
 @media (max-width:640px){.hero.home.ph{min-height:0;padding:48px 0 56px}.band-in{padding:30px 22px}.hero.ph:before{background:linear-gradient(180deg,rgba(8,36,30,.85),rgba(8,36,30,.92))}}
 .hero.ph .hero-ill{display:none}.hero.ph .hero-grid.sm{grid-template-columns:minmax(0,860px)}
+/* ===== v4: animasi & penyempurnaan ===== */
+.top{position:sticky;top:0;z-index:50;transition:background .3s,box-shadow .3s}
+.top.scrolled{background:rgba(11,46,38,.9);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);box-shadow:0 8px 24px -12px rgba(0,0,0,.45)}
+.side{top:84px}.cat,.ccard,.prose h2,.article h2,.cat-h{scroll-margin-top:84px}
+.nav a{position:relative;transition:background .2s,color .2s}
+.nav a:not(.pill):after{content:"";position:absolute;left:12px;right:12px;bottom:4px;height:2px;border-radius:2px;background:var(--gold);transform:scaleX(0);transition:transform .25s}
+.nav a:not(.pill):hover:after,.nav a.on:not(.pill):after{transform:scaleX(1)}
+.brand img{transition:transform .4s cubic-bezier(.3,1.6,.5,1)}.brand:hover img{transform:rotate(-8deg) scale(1.08)}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:10px}.hero .eyebrow:before{content:"";width:26px;height:2px;background:var(--gold);border-radius:2px}
+.cat-h h2{position:relative;padding-left:14px}.cat-h h2:before{content:"";position:absolute;left:0;top:.18em;bottom:.18em;width:4px;border-radius:4px;background:linear-gradient(var(--gold),var(--em))}
+.card{box-shadow:0 1px 2px rgba(11,46,38,.04),0 8px 24px -18px rgba(11,46,38,.35)}
+.btn{transition:transform .15s,box-shadow .2s,background .2s}.btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px -12px rgba(14,124,102,.8)}.btn:active{transform:translateY(0)}
+.btn.gold{position:relative;overflow:hidden}.btn.gold:after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);animation:shine 4.5s ease-in-out infinite}
+@keyframes shine{0%,70%{left:-60%}100%{left:130%}}
+.nav a.pill{animation:glow 3.2s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(232,169,12,.0)}50%{box-shadow:0 0 0 6px rgba(232,169,12,.18)}}
+.in input,.fld select{transition:border-color .2s,box-shadow .2s}.in input:focus,.fld select:focus{box-shadow:0 0 0 4px rgba(14,124,102,.15)}
+.thumb .badge{transition:transform .35s cubic-bezier(.3,1.6,.5,1)}.ccard:hover .badge,.acard:hover .badge{transform:translateY(-4px) rotate(-4deg)}
+.ccard .go{transition:letter-spacing .2s}.ccard:hover .go{letter-spacing:.02em}
+.foot{background:radial-gradient(700px 300px at 100% 0,rgba(232,169,12,.12),transparent 60%),#0B2E26}
+/* hero masuk */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.09) translate(-1%,-1%)}}
+.js .hero .hero-grid>div:first-child>*{animation:fadeUp .7s cubic-bezier(.2,.7,.2,1) both}
+.js .hero .hero-grid>div:first-child>*:nth-child(2){animation-delay:.08s}.js .hero .hero-grid>div:first-child>*:nth-child(3){animation-delay:.16s}
+.js .hero .hero-grid>div:first-child>*:nth-child(4){animation-delay:.24s}.js .hero .hero-grid>div:first-child>*:nth-child(5){animation-delay:.32s}
+.hbg{animation:kb 26s ease-in-out infinite alternate;transform-origin:70% 40%}
+/* kartu melayang di hero */
+@keyframes bob1{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes bob2{0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(-3deg) translateY(-8px)}}
+@keyframes bob3{0%,100%{transform:rotate(2deg) translateY(0)}50%{transform:rotate(2deg) translateY(-12px)}}
+@keyframes pop-in{from{opacity:0;transform:translateY(24px) scale(.94)}to{opacity:1}}
+.hero-art .hcard{animation:pop-in .8s .3s cubic-bezier(.2,.8,.2,1.2) both}
+.hero-art .hcard.big{animation:pop-in .8s .25s both,bob1 6s 1.2s ease-in-out infinite}
+.hero-art .hcard.c2{animation:pop-in .8s .45s both,bob2 5s 1.4s ease-in-out infinite}
+.hero-art .hcard.c3{animation:pop-in .8s .6s both,bob3 7s 1.6s ease-in-out infinite}
+/* muncul saat digulir */
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+.js .ccard.rv.in:hover,.js .acard.rv.in:hover{transform:translateY(-4px);transition-delay:0s!important;transition-duration:.2s}
+.ccard:hover,.acard:hover{box-shadow:0 18px 36px -18px rgba(14,124,102,.55)}
+/* grafik tumbuh */
+.chart rect{transform-box:fill-box;transform-origin:50% 100%}
+.js .chart.rv rect{transform:scaleY(0);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.js .chart.rv.in rect{transform:scaleY(1)}
+.js .chart.rv.in rect:nth-of-type(3n+1){transition-delay:.05s}.js .chart.rv.in rect:nth-of-type(3n+2){transition-delay:.15s}.js .chart.rv.in rect:nth-of-type(3n){transition-delay:.25s}
+.js .chart.rv polyline{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.8s ease-out .2s}.js .chart.rv.in polyline{stroke-dashoffset:0}
+/* hasil kalkulator */
+@keyframes kpop{0%{transform:scale(.97);opacity:.4}100%{transform:none;opacity:1}}
+.kpis.pop .kpi{animation:kpop .45s cubic-bezier(.2,.8,.2,1.3) both}.kpis.pop .kpi:nth-child(2){animation-delay:.05s}.kpis.pop .kpi:nth-child(3){animation-delay:.1s}.kpis.pop .kpi:nth-child(4){animation-delay:.15s}
+.kpi.main{background:linear-gradient(135deg,#0B2E26,#0E5A49);box-shadow:0 12px 26px -16px rgba(11,46,38,.9)}
+/* ilustrasi bergerak halus */
+@keyframes sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+.guide-cta img,.side-calc img{transition:transform .4s}.guide-cta:hover img{transform:scale(1.06) rotate(-2deg)}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}}
+@media print{.js .rv{opacity:1!important;transform:none!important}.js .chart.rv rect{transform:none!important}}

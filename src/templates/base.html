@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.classList.add("js")</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ title }}</title>
 <meta name="description" content="{{ description }}">
@@ -43,6 +44,7 @@
 <script>window.SEARCH={{ search|safe }};</script>
 <script src="/static/js/finance.js?v={{ v }}"></script>
 <script src="/static/js/ui.js?v={{ v }}"></script>
+<script src="/static/js/anim.js?v={{ v }}" defer></script>
 {% block scripts %}{% endblock %}
 </body>
 </html>
