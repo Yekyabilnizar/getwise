@@ -20,7 +20,8 @@ CONFIG = dict(
     name1="Get", name2="Wise",
     base=os.environ.get("SITE_BASE", "https://getwise.id").rstrip("/"),   # ganti dengan domain Anda
     adsense=os.environ.get("ADSENSE", ""),        # contoh: ca-pub-7815801753925125
-    ga=os.environ.get("GA_ID", ""),               # contoh: G-XXXXXXXXXX
+    ga=os.environ.get("GA_ID", ""),
+    gsc=os.environ.get("GSC_VERIFY", ""),           # kode verifikasi Google Search Console (meta tag)               # contoh: G-XXXXXXXXXX
     email=os.environ.get("CONTACT_EMAIL", "halo@getwise.id"),
 )
 RULES_UPDATED = "27 November 2026"
