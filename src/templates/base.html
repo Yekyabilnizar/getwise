@@ -13,6 +13,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="/static/img/favicon-48.png">
 <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
 <meta name="theme-color" content="#0B2E26">
+{% if cfg.gsc %}<meta name="google-site-verification" content="{{ cfg.gsc }}">{% endif %}
 <link rel="stylesheet" href="/static/style.css?v={{ v }}">
 {% if cfg.adsense %}<meta name="google-adsense-account" content="{{ cfg.adsense }}">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ cfg.adsense }}" crossorigin="anonymous"></script>{% endif %}
