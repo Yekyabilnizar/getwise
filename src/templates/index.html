@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block hero %}
+<section class="hero"><div class="wrap">
+  <span class="eyebrow">Kalkulator keuangan Indonesia</span>
+  <h1>Hitung pajak, gaji, cicilan, dan investasi dalam hitungan detik</h1>
+  <p class="lead">Kalkulator PPh 21 metode TER, gaji bersih, THR, BPJS, KPR, kredit kendaraan, deposito, dan investasi. Mengikuti aturan terbaru, gratis, tanpa daftar, dan data Anda tidak keluar dari perangkat.</p>
+  <div class="search"><input id="q" type="search" placeholder="Cari kalkulator… (mis. PPh 21, KPR, BPJS)" aria-label="Cari kalkulator"><div class="sres" id="sres"></div></div>
+</div></section>
+{% endblock %}
+{% block content %}
+{% for cat in cats %}
+<div class="cat-h" id="{{ cat.id }}"><h2>{{ cat.icon }} {{ cat.name }}</h2><span>{{ cat.desc }}</span></div>
+<div class="grid g3">{% for c in calcs if c.cat == cat.id %}
+<a class="card ccard" href="/{{ c.slug }}/"><span class="ic">{{ c.icon }}</span><b>{{ c.short }}</b><span>{{ c.card }}</span><span class="go">Hitung sekarang →</span></a>
+{% endfor %}</div>
+{% endfor %}
+<div class="grid g2" style="margin-top:34px">
+  <div class="card"><h2 style="margin-top:0">Kenapa {{ cfg.name1 }}{{ cfg.name2 }}?</h2>
+    <ul style="padding-left:20px;margin:0">
+      <li><b>Mengikuti aturan terbaru</b>: tarif efektif rata-rata (TER) PPh 21, PTKP, tarif Pasal 17 UU HPP, dan batas upah BPJS 2026.</li>
+      <li><b>Rinci dan transparan</b>: setiap hasil menunjukkan langkah hitungnya, bukan sekadar angka akhir.</li>
+      <li><b>Privat</b>: semua hitungan berjalan di peramban Anda; tidak ada data yang dikirim ke server.</li>
+      <li><b>Bisa dibagikan</b>: salin tautan hasil untuk dikirim ke rekan, HRD, atau pasangan.</li>
+    </ul></div>
+  <div class="card"><h2 style="margin-top:0">Pertanyaan umum</h2>
+    <div class="faq">
+      <details><summary>Apakah hasilnya sama dengan potongan di slip gaji?</summary><p>Biasanya sangat dekat. Perbedaan kecil bisa muncul karena komponen gaji, pembulatan, atau kebijakan perusahaan (misalnya pajak ditanggung perusahaan). Gunakan sebagai pembanding, lalu konfirmasi ke HRD.</p></details>
+      <details><summary>Seberapa sering aturan diperbarui?</summary><p>Setiap ada perubahan resmi (misalnya batas upah Jaminan Pensiun tiap Maret). Tanggal pembaruan tertulis di setiap halaman.</p></details>
+      <details><summary>Apakah gratis?</summary><p>Ya, seluruh kalkulator gratis dan tanpa pendaftaran. Situs ini dibiayai oleh iklan.</p></details>
+    </div></div>
+</div>
+{% endblock %}

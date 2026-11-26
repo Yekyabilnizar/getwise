@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulasi KPR 2026 – Hitung Cicilan Rumah Bunga Fixed &amp; Floating</title>
+<meta name="description" content="Hitung cicilan KPR dengan bunga fixed lalu floating (metode anuitas), total bunga, sisa pokok per tahun, dan penghasilan minimal yang disarankan.">
+<link rel="canonical" href="https://getwise.id/simulasi-kpr/">
+<meta property="og:type" content="website"><meta property="og:title" content="Simulasi KPR 2026 – Hitung Cicilan Rumah Bunga Fixed &amp; Floating"><meta property="og:description" content="Hitung cicilan KPR dengan bunga fixed lalu floating (metode anuitas), total bunga, sisa pokok per tahun, dan penghasilan minimal yang disarankan.">
+<meta property="og:url" content="https://getwise.id/simulasi-kpr/"><meta property="og:image" content="https://getwise.id/static/img/og.png"><meta property="og:locale" content="id_ID">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/static/img/logo.svg">
+<link rel="icon" type="image/png" sizes="48x48" href="/static/img/favicon-48.png">
+<link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
+<meta name="theme-color" content="#0B2E26">
+<link rel="stylesheet" href="/static/style.css?v=1795728199">
+
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Simulasi KPR: Cicilan Rumah Fixed dan Floating", "url": "https://getwise.id/simulasi-kpr/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "inLanguage": "id-ID", "description": "Hitung cicilan KPR dengan bunga fixed lalu floating (metode anuitas), total bunga, sisa pokok per tahun, dan penghasilan minimal yang disarankan.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Berapa DP minimum KPR?", "acceptedAnswer": {"@type": "Answer", "text": "Ditentukan bank sesuai ketentuan loan-to-value (LTV) Bank Indonesia dan program yang sedang berlaku; beberapa program rumah pertama bahkan membolehkan DP sangat kecil. Tanyakan langsung ke bank."}}, {"@type": "Question", "name": "Kenapa sisa pokok berkurang lambat di tahun-tahun awal?", "acceptedAnswer": {"@type": "Answer", "text": "Karena pada metode anuitas porsi bunga dihitung dari sisa pokok yang masih besar, sehingga sebagian besar cicilan awal habis untuk bunga."}}, {"@type": "Question", "name": "Apakah hasil simulasi sama persis dengan bank?", "acceptedAnswer": {"@type": "Answer", "text": "Mendekati. Bank bisa memakai pembulatan, hitungan hari, atau biaya asuransi yang dimasukkan ke cicilan, sehingga angkanya sedikit berbeda."}}, {"@type": "Question", "name": "Lebih baik tenor pendek atau panjang?", "acceptedAnswer": {"@type": "Answer", "text": "Tenor pendek: cicilan lebih besar tetapi total bunga jauh lebih kecil. Tenor panjang: cicilan ringan tetapi total bunga membengkak. Pilih tenor terpendek yang cicilannya tetap di bawah sekitar 30% penghasilan."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://getwise.id/"}, {"@type": "ListItem", "position": 2, "name": "Kredit & Cicilan", "item": "https://getwise.id/#kredit"}, {"@type": "ListItem", "position": 3, "name": "Simulasi KPR", "item": "https://getwise.id/simulasi-kpr/"}]}</script>
+
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="/"><img src="/static/img/logo.svg" alt="" width="34" height="34"><span>Get<b>Wise</b></span></a>
+  <nav class="nav" aria-label="Kategori"><a href="/#pajak-gaji">Pajak &amp; Gaji</a><a href="/#bpjs">BPJS</a><a href="/#kredit" class="on">Kredit</a><a href="/#investasi">Investasi</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div class="crumb"><a href="/">Beranda</a> › <a href="/#kredit">Kredit &amp; Cicilan</a> › Simulasi KPR</div>
+  <h1>Simulasi KPR: Cicilan Rumah Fixed dan Floating</h1>
+  <p class="lead">Simulasikan cicilan KPR dengan masa bunga fixed lalu floating. Lihat cicilan per bulan, total bunga, sisa pokok tiap tahun, dan penghasilan minimal yang biasanya disyaratkan bank.</p>
+</div></section>
+
+<main><div class="wrap">
+<div class="calc-grid"><div>
+  <form class="card tool" id="calc" autocomplete="off" novalidate>
+    <div class="fields"><div class="fld"><label for="harga">Harga rumah</label><div class="in pre" data-pre="Rp"><input id="harga" inputmode="numeric" data-money value="600000000"></div></div><div class="fld"><label for="dpPersen">Uang muka (DP)</label><div class="in suf" data-suf="%"><input id="dpPersen" inputmode="decimal" value="20"></div></div><div class="fld"><label for="tenorTahun">Tenor</label><div class="in suf" data-suf="tahun"><input id="tenorTahun" inputmode="decimal" value="15"></div></div><div class="fld"><label for="fixTahun">Masa bunga fixed</label><div class="in suf" data-suf="tahun"><input id="fixTahun" inputmode="decimal" value="3"></div></div><div class="fld"><label for="bungaFix">Bunga fixed per tahun</label><div class="in suf" data-suf="%"><input id="bungaFix" inputmode="decimal" value="4,5"></div></div><div class="fld"><label for="bungaFloat">Perkiraan bunga floating per tahun</label><div class="in suf" data-suf="%"><input id="bungaFloat" inputmode="decimal" value="11"></div><div class="h">Bunga setelah masa fixed berakhir.</div></div></div>
+    
+    <div class="btns"><button class="btn" type="submit">Hitung</button><button class="btn sec" type="button" id="share">🔗 Salin tautan hasil</button><button class="btn sec" type="button" id="print">🖨️ Cetak</button></div>
+    <div class="res" id="res" aria-live="polite"></div>
+  </form>
+  <article class="card prose">
+    <h2>Cara bank menghitung cicilan KPR</h2><p>Hampir semua KPR di Indonesia memakai <b>metode anuitas</b>: cicilan per bulan sama selama suku bunga tidak berubah, tetapi porsi bunga besar di awal dan porsi pokok besar di akhir.</p>
+<div class="formula">Cicilan = P × r ÷ (1 − (1 + r)^−n)
+P = pokok pinjaman (harga − DP)
+r = bunga per tahun ÷ 12
+n = sisa tenor dalam bulan</div>
+<p>Saat masa fixed berakhir, bank menghitung ulang cicilan dengan rumus yang sama memakai <b>sisa pokok</b>, <b>bunga floating</b>, dan <b>sisa tenor</b>. Karena bunga floating biasanya jauh lebih tinggi, cicilan bisa naik tajam.</p><h2>Fixed, floating, dan risiko lonjakan cicilan</h2><p>Bunga promosi fixed (misalnya 3–5% untuk 1–5 tahun) membuat cicilan awal ringan. Setelah itu bunga mengikuti suku bunga acuan bank (floating) yang bisa naik atau turun. Simulasikan beberapa skenario bunga floating, misalnya 10%, 12%, dan 13%, untuk memastikan Anda tetap sanggup membayar bila bunga naik.</p><h2>Penghasilan minimal dan biaya lain</h2><p>Bank umumnya mensyaratkan cicilan tidak lebih dari sekitar <b>30–35% penghasilan</b> bulanan (bisa gabungan suami-istri). Kalkulator ini menampilkan penghasilan minimal dengan patokan 30% dari cicilan tertinggi.</p>
+<p>Selain DP, siapkan biaya awal seperti provisi dan administrasi bank, biaya notaris dan akta, asuransi jiwa dan kebakaran, serta pajak pembeli (BPHTB). Besarnya berbeda antarbank dan daerah; secara kasar bisa beberapa persen dari harga rumah.</p><h2>Tips menghemat bunga</h2><ul><li>Perbesar DP untuk mengurangi pokok pinjaman.</li><li>Pilih tenor sependek yang masih nyaman; total bunga turun drastis.</li>
+<li>Manfaatkan pelunasan sebagian saat bunga floating tinggi, dengan memperhatikan penalti pelunasan dipercepat.</li><li>Pertimbangkan take over KPR ke bank lain bila selisih bunga cukup besar.</li></ul>
+    <h2>Pertanyaan yang sering diajukan</h2>
+    <div class="faq"><details><summary>Berapa DP minimum KPR?</summary><p>Ditentukan bank sesuai ketentuan loan-to-value (LTV) Bank Indonesia dan program yang sedang berlaku; beberapa program rumah pertama bahkan membolehkan DP sangat kecil. Tanyakan langsung ke bank.</p></details><details><summary>Kenapa sisa pokok berkurang lambat di tahun-tahun awal?</summary><p>Karena pada metode anuitas porsi bunga dihitung dari sisa pokok yang masih besar, sehingga sebagian besar cicilan awal habis untuk bunga.</p></details><details><summary>Apakah hasil simulasi sama persis dengan bank?</summary><p>Mendekati. Bank bisa memakai pembulatan, hitungan hari, atau biaya asuransi yang dimasukkan ke cicilan, sehingga angkanya sedikit berbeda.</p></details><details><summary>Lebih baik tenor pendek atau panjang?</summary><p>Tenor pendek: cicilan lebih besar tetapi total bunga jauh lebih kecil. Tenor panjang: cicilan ringan tetapi total bunga membengkak. Pilih tenor terpendek yang cicilannya tetap di bawah sekitar 30% penghasilan.</p></details></div>
+    <h2>Dasar aturan dan sumber</h2>
+    <ul class="src"><li>Rumus anuitas standar perbankan; ketentuan LTV/FTV Bank Indonesia</li></ul>
+    <p class="upd">Terakhir diperbarui: 27 November 2026. Bila menemukan aturan yang sudah berubah, <a href="/kontak/">kabari kami</a>.</p>
+  </article>
+</div>
+<aside class="side">
+  <div class="card"><h3>Kalkulator terkait</h3><ul><li><a href="/simulasi-kredit-kendaraan/">Simulasi Kredit Motor/Mobil</a></li><li><a href="/kalkulator-investasi/">Kalkulator Investasi</a></li><li><a href="/kalkulator-gaji-bersih/">Kalkulator Gaji Bersih</a></li><li><a href="/kalkulator-deposito/">Kalkulator Deposito</a></li></ul></div>
+  <div class="card"><h3>Isi halaman</h3><ul><li>Cara bank menghitung cicilan KPR</li><li>Fixed, floating, dan risiko lonjakan cicilan</li><li>Penghasilan minimal dan biaya lain</li><li>Tips menghemat bunga</li></ul></div>
+  <div class="card note info" style="margin:0">Semua hitungan berjalan di peramban Anda. Angka yang Anda isi tidak dikirim ke server.</div>
+</aside></div>
+</div></main>
+<footer class="foot"><div class="wrap">
+  <p><b style="color:#fff">GetWise</b> · Kalkulator keuangan Indonesia, gratis dan tanpa daftar. Semua perhitungan dilakukan di perangkat Anda.</p>
+  <p><a href="/tentang/">Tentang</a><a href="/kontak/">Kontak</a><a href="/privasi/">Kebijakan Privasi</a><a href="/syarat/">Syarat &amp; Penafian</a></p>
+  <p>Hasil perhitungan bersifat simulasi dan informasi umum, bukan nasihat keuangan, pajak, atau hukum. Aturan diperbarui per 27 November 2026.</p>
+</div></footer>
+<script>window.SEARCH=[{"t": "Kalkulator PPh 21", "k": "Kalkulator PPh 21 TER 2026 – Hitung Pajak Gaji Bulanan & Desember Hitung PPh 21 karyawan tetap dengan tarif efektif rata-rata (TER) PP 58/2023: pajak Januari–November, perhitungan ulang Desember, PTKP, dan biaya jabatan.", "d": "Pajak gaji bulanan metode TER dan perhitungan ulang Desember.", "u": "/kalkulator-pph-21/"}, {"t": "Kalkulator Gaji Bersih", "k": "Kalkulator Gaji Bersih 2026 – Take Home Pay Setelah BPJS & PPh 21 Hitung gaji bersih yang diterima setelah dipotong BPJS Kesehatan, JHT, JP, dan PPh 21 TER, plus total biaya yang dikeluarkan perusahaan.", "d": "Gaji yang benar-benar diterima setelah BPJS dan PPh 21.", "u": "/kalkulator-gaji-bersih/"}, {"t": "Kalkulator THR", "k": "Kalkulator THR 2026 – Besaran THR Proporsional & Potongan Pajaknya Hitung besaran THR sesuai masa kerja (penuh atau proporsional) dan perkiraan potongan PPh 21 TER di bulan THR dibayarkan.", "d": "THR penuh atau proporsional, plus potongan pajaknya.", "u": "/kalkulator-thr/"}, {"t": "Kalkulator Iuran BPJS", "k": "Kalkulator Iuran BPJS Kesehatan & Ketenagakerjaan 2026 (JHT, JP, JKK, JKM) Hitung iuran BPJS Kesehatan dan BPJS Ketenagakerjaan (JHT, JP, JKK, JKM) bagian karyawan dan perusahaan, lengkap dengan batas upah terbaru.", "d": "Iuran Kesehatan, JHT, JP, JKK, JKM bagian karyawan & perusahaan.", "u": "/kalkulator-bpjs/"}, {"t": "Simulasi KPR", "k": "Simulasi KPR 2026 – Hitung Cicilan Rumah Bunga Fixed & Floating Hitung cicilan KPR dengan bunga fixed lalu floating (metode anuitas), total bunga, sisa pokok per tahun, dan penghasilan minimal yang disarankan.", "d": "Cicilan rumah dengan bunga fixed lalu floating, plus jadwal per tahun.", "u": "/simulasi-kpr/"}, {"t": "Simulasi Kredit Motor/Mobil", "k": "Simulasi Kredit Motor & Mobil – Bunga Flat ke Bunga Efektif Hitung cicilan kredit kendaraan dengan bunga flat, total bunga, dan bunga efektif tahunan yang sebenarnya untuk membandingkan penawaran leasing.", "d": "Cicilan bunga flat dan bunga efektif yang sebenarnya.", "u": "/simulasi-kredit-kendaraan/"}, {"t": "Kalkulator Deposito", "k": "Kalkulator Bunga Deposito 2026 – Bunga Bersih Setelah Pajak 20% Hitung bunga deposito bersih setelah PPh final 20%, hasil per periode, dan saldo akhir bila diperpanjang otomatis (ARO).", "d": "Bunga bersih setelah pajak 20% dan simulasi ARO.", "u": "/kalkulator-deposito/"}, {"t": "Kalkulator Investasi", "k": "Kalkulator Investasi & Bunga Majemuk – Simulasi Investasi Rutin Bulanan Simulasikan nilai investasi dari modal awal dan setoran rutin bulanan dengan imbal hasil majemuk, lengkap dengan tabel pertumbuhan per tahun.", "d": "Nilai investasi rutin bulanan dengan bunga majemuk.", "u": "/kalkulator-investasi/"}];</script>
+<script src="/static/js/finance.js?v=1795728199"></script>
+<script src="/static/js/ui.js?v=1795728199"></script>
+<script src="/static/js/pages/kpr.js?v=1795728199"></script>
+</body>
+</html>

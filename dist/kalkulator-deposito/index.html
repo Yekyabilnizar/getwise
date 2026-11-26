@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kalkulator Bunga Deposito 2026 – Bunga Bersih Setelah Pajak 20%</title>
+<meta name="description" content="Hitung bunga deposito bersih setelah PPh final 20%, hasil per periode, dan saldo akhir bila diperpanjang otomatis (ARO).">
+<link rel="canonical" href="https://getwise.id/kalkulator-deposito/">
+<meta property="og:type" content="website"><meta property="og:title" content="Kalkulator Bunga Deposito 2026 – Bunga Bersih Setelah Pajak 20%"><meta property="og:description" content="Hitung bunga deposito bersih setelah PPh final 20%, hasil per periode, dan saldo akhir bila diperpanjang otomatis (ARO).">
+<meta property="og:url" content="https://getwise.id/kalkulator-deposito/"><meta property="og:image" content="https://getwise.id/static/img/og.png"><meta property="og:locale" content="id_ID">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/static/img/logo.svg">
+<link rel="icon" type="image/png" sizes="48x48" href="/static/img/favicon-48.png">
+<link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
+<meta name="theme-color" content="#0B2E26">
+<link rel="stylesheet" href="/static/style.css?v=1795728199">
+
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Kalkulator Bunga Deposito", "url": "https://getwise.id/kalkulator-deposito/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "inLanguage": "id-ID", "description": "Hitung bunga deposito bersih setelah PPh final 20%, hasil per periode, dan saldo akhir bila diperpanjang otomatis (ARO).", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Apakah bunga deposito lebih baik dari reksa dana pasar uang?", "acceptedAnswer": {"@type": "Answer", "text": "Deposito memberi bunga pasti dan dijamin LPS (dengan syarat), tetapi dananya terkunci sampai jatuh tempo. Reksa dana pasar uang lebih fleksibel dan pajaknya berbeda, tetapi hasilnya tidak dijamin. Bandingkan hasil bersih setelah pajak."}}, {"@type": "Question", "name": "Bagaimana jika dicairkan sebelum jatuh tempo?", "acceptedAnswer": {"@type": "Answer", "text": "Bank biasanya mengenakan penalti atau tidak memberikan bunga untuk periode berjalan. Cek ketentuan bank Anda."}}, {"@type": "Question", "name": "Apakah bunga deposito perlu dilaporkan di SPT?", "acceptedAnswer": {"@type": "Answer", "text": "Ya, bunga deposito dilaporkan sebagai penghasilan yang dikenai PPh final, dan saldo deposito dilaporkan sebagai harta."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://getwise.id/"}, {"@type": "ListItem", "position": 2, "name": "Tabungan & Investasi", "item": "https://getwise.id/#investasi"}, {"@type": "ListItem", "position": 3, "name": "Kalkulator Deposito", "item": "https://getwise.id/kalkulator-deposito/"}]}</script>
+
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="/"><img src="/static/img/logo.svg" alt="" width="34" height="34"><span>Get<b>Wise</b></span></a>
+  <nav class="nav" aria-label="Kategori"><a href="/#pajak-gaji">Pajak &amp; Gaji</a><a href="/#bpjs">BPJS</a><a href="/#kredit">Kredit</a><a href="/#investasi" class="on">Investasi</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div class="crumb"><a href="/">Beranda</a> › <a href="/#investasi">Tabungan &amp; Investasi</a> › Kalkulator Deposito</div>
+  <h1>Kalkulator Bunga Deposito</h1>
+  <p class="lead">Hitung bunga deposito yang benar-benar Anda terima setelah pajak, lalu simulasikan saldo bila deposito diperpanjang otomatis (ARO) beberapa kali.</p>
+</div></section>
+
+<main><div class="wrap">
+<div class="calc-grid"><div>
+  <form class="card tool" id="calc" autocomplete="off" novalidate>
+    <div class="fields"><div class="fld"><label for="nominal">Nominal deposito</label><div class="in pre" data-pre="Rp"><input id="nominal" inputmode="numeric" data-money value="100000000"></div></div><div class="fld"><label for="bunga">Bunga per tahun</label><div class="in suf" data-suf="%"><input id="bunga" inputmode="decimal" value="4"></div></div><div class="fld"><label for="tenorBulan">Tenor</label><select id="tenorBulan"><option value="1">1 bulan</option><option value="3">3 bulan</option><option value="6">6 bulan</option><option value="12" selected>12 bulan</option><option value="24">24 bulan</option></select></div><div class="fld"><label for="perpanjang">Jumlah periode</label><div class="in suf" data-suf="kali"><input id="perpanjang" inputmode="decimal" value="1"></div><div class="h">Berapa kali deposito diperpanjang (termasuk periode pertama).</div></div><div class="fld"><label>Perpanjangan</label><label class="chk"><input type="checkbox" id="aro" checked> ARO + bunga (bunga ikut didepositokan)</label></div></div>
+    
+    <div class="btns"><button class="btn" type="submit">Hitung</button><button class="btn sec" type="button" id="share">🔗 Salin tautan hasil</button><button class="btn sec" type="button" id="print">🖨️ Cetak</button></div>
+    <div class="res" id="res" aria-live="polite"></div>
+  </form>
+  <article class="card prose">
+    <h2>Cara menghitung bunga deposito</h2><div class="formula">Bunga kotor = Nominal × bunga per tahun × tenor (bulan) ÷ 12
+Pajak = 20% × bunga kotor (bila saldo di atas Rp7.500.000)
+Bunga bersih = Bunga kotor − Pajak</div>
+<p>Bank sebenarnya menghitung bunga berdasarkan jumlah hari, sehingga hasil di bank bisa berbeda sedikit.</p><h2>Pajak bunga deposito</h2><p>Bunga deposito dikenai <b>PPh final 20%</b> yang dipotong langsung oleh bank. Bunga tidak dipotong pajak bila jumlah deposito dan tabungan Anda di bank tersebut tidak lebih dari Rp7.500.000.</p><h2>Aman tidaknya deposito: penjaminan LPS</h2><p>Simpanan di bank peserta Lembaga Penjamin Simpanan (LPS) dijamin sampai <b>Rp2 miliar per nasabah per bank</b>, dengan syarat suku bunga yang Anda terima tidak melebihi <b>tingkat bunga penjaminan LPS</b> yang berlaku. Bila bunga yang ditawarkan di atas batas itu, simpanan Anda bisa tidak dijamin. Cek tingkat bunga penjaminan terbaru di situs LPS sebelum menempatkan dana.</p><h2>ARO, ARO + bunga, dan non-ARO</h2><ul><li><b>ARO + bunga</b>: pokok dan bunga diperpanjang otomatis, sehingga bunga ikut berbunga (majemuk).</li>
+<li><b>ARO pokok saja</b>: pokok diperpanjang, bunga dibayarkan ke rekening tabungan.</li><li><b>Non-ARO</b>: dana kembali ke tabungan saat jatuh tempo.</li></ul>
+<p>Hilangkan centang ARO + bunga untuk melihat hasil bila bunga diambil setiap jatuh tempo.</p>
+    <h2>Pertanyaan yang sering diajukan</h2>
+    <div class="faq"><details><summary>Apakah bunga deposito lebih baik dari reksa dana pasar uang?</summary><p>Deposito memberi bunga pasti dan dijamin LPS (dengan syarat), tetapi dananya terkunci sampai jatuh tempo. Reksa dana pasar uang lebih fleksibel dan pajaknya berbeda, tetapi hasilnya tidak dijamin. Bandingkan hasil bersih setelah pajak.</p></details><details><summary>Bagaimana jika dicairkan sebelum jatuh tempo?</summary><p>Bank biasanya mengenakan penalti atau tidak memberikan bunga untuk periode berjalan. Cek ketentuan bank Anda.</p></details><details><summary>Apakah bunga deposito perlu dilaporkan di SPT?</summary><p>Ya, bunga deposito dilaporkan sebagai penghasilan yang dikenai PPh final, dan saldo deposito dilaporkan sebagai harta.</p></details></div>
+    <h2>Dasar aturan dan sumber</h2>
+    <ul class="src"><li>PPh final atas bunga deposito dan tabungan (PP 131/2000 dan perubahannya)</li><li>Lembaga Penjamin Simpanan – ketentuan penjaminan simpanan</li></ul>
+    <p class="upd">Terakhir diperbarui: 27 November 2026. Bila menemukan aturan yang sudah berubah, <a href="/kontak/">kabari kami</a>.</p>
+  </article>
+</div>
+<aside class="side">
+  <div class="card"><h3>Kalkulator terkait</h3><ul><li><a href="/kalkulator-investasi/">Kalkulator Investasi</a></li><li><a href="/simulasi-kpr/">Simulasi KPR</a></li><li><a href="/kalkulator-gaji-bersih/">Kalkulator Gaji Bersih</a></li><li><a href="/kalkulator-thr/">Kalkulator THR</a></li></ul></div>
+  <div class="card"><h3>Isi halaman</h3><ul><li>Cara menghitung bunga deposito</li><li>Pajak bunga deposito</li><li>Aman tidaknya deposito: penjaminan LPS</li><li>ARO, ARO + bunga, dan non-ARO</li></ul></div>
+  <div class="card note info" style="margin:0">Semua hitungan berjalan di peramban Anda. Angka yang Anda isi tidak dikirim ke server.</div>
+</aside></div>
+</div></main>
+<footer class="foot"><div class="wrap">
+  <p><b style="color:#fff">GetWise</b> · Kalkulator keuangan Indonesia, gratis dan tanpa daftar. Semua perhitungan dilakukan di perangkat Anda.</p>
+  <p><a href="/tentang/">Tentang</a><a href="/kontak/">Kontak</a><a href="/privasi/">Kebijakan Privasi</a><a href="/syarat/">Syarat &amp; Penafian</a></p>
+  <p>Hasil perhitungan bersifat simulasi dan informasi umum, bukan nasihat keuangan, pajak, atau hukum. Aturan diperbarui per 27 November 2026.</p>
+</div></footer>
+<script>window.SEARCH=[{"t": "Kalkulator PPh 21", "k": "Kalkulator PPh 21 TER 2026 – Hitung Pajak Gaji Bulanan & Desember Hitung PPh 21 karyawan tetap dengan tarif efektif rata-rata (TER) PP 58/2023: pajak Januari–November, perhitungan ulang Desember, PTKP, dan biaya jabatan.", "d": "Pajak gaji bulanan metode TER dan perhitungan ulang Desember.", "u": "/kalkulator-pph-21/"}, {"t": "Kalkulator Gaji Bersih", "k": "Kalkulator Gaji Bersih 2026 – Take Home Pay Setelah BPJS & PPh 21 Hitung gaji bersih yang diterima setelah dipotong BPJS Kesehatan, JHT, JP, dan PPh 21 TER, plus total biaya yang dikeluarkan perusahaan.", "d": "Gaji yang benar-benar diterima setelah BPJS dan PPh 21.", "u": "/kalkulator-gaji-bersih/"}, {"t": "Kalkulator THR", "k": "Kalkulator THR 2026 – Besaran THR Proporsional & Potongan Pajaknya Hitung besaran THR sesuai masa kerja (penuh atau proporsional) dan perkiraan potongan PPh 21 TER di bulan THR dibayarkan.", "d": "THR penuh atau proporsional, plus potongan pajaknya.", "u": "/kalkulator-thr/"}, {"t": "Kalkulator Iuran BPJS", "k": "Kalkulator Iuran BPJS Kesehatan & Ketenagakerjaan 2026 (JHT, JP, JKK, JKM) Hitung iuran BPJS Kesehatan dan BPJS Ketenagakerjaan (JHT, JP, JKK, JKM) bagian karyawan dan perusahaan, lengkap dengan batas upah terbaru.", "d": "Iuran Kesehatan, JHT, JP, JKK, JKM bagian karyawan & perusahaan.", "u": "/kalkulator-bpjs/"}, {"t": "Simulasi KPR", "k": "Simulasi KPR 2026 – Hitung Cicilan Rumah Bunga Fixed & Floating Hitung cicilan KPR dengan bunga fixed lalu floating (metode anuitas), total bunga, sisa pokok per tahun, dan penghasilan minimal yang disarankan.", "d": "Cicilan rumah dengan bunga fixed lalu floating, plus jadwal per tahun.", "u": "/simulasi-kpr/"}, {"t": "Simulasi Kredit Motor/Mobil", "k": "Simulasi Kredit Motor & Mobil – Bunga Flat ke Bunga Efektif Hitung cicilan kredit kendaraan dengan bunga flat, total bunga, dan bunga efektif tahunan yang sebenarnya untuk membandingkan penawaran leasing.", "d": "Cicilan bunga flat dan bunga efektif yang sebenarnya.", "u": "/simulasi-kredit-kendaraan/"}, {"t": "Kalkulator Deposito", "k": "Kalkulator Bunga Deposito 2026 – Bunga Bersih Setelah Pajak 20% Hitung bunga deposito bersih setelah PPh final 20%, hasil per periode, dan saldo akhir bila diperpanjang otomatis (ARO).", "d": "Bunga bersih setelah pajak 20% dan simulasi ARO.", "u": "/kalkulator-deposito/"}, {"t": "Kalkulator Investasi", "k": "Kalkulator Investasi & Bunga Majemuk – Simulasi Investasi Rutin Bulanan Simulasikan nilai investasi dari modal awal dan setoran rutin bulanan dengan imbal hasil majemuk, lengkap dengan tabel pertumbuhan per tahun.", "d": "Nilai investasi rutin bulanan dengan bunga majemuk.", "u": "/kalkulator-investasi/"}];</script>
+<script src="/static/js/finance.js?v=1795728199"></script>
+<script src="/static/js/ui.js?v=1795728199"></script>
+<script src="/static/js/pages/deposito.js?v=1795728199"></script>
+</body>
+</html>
