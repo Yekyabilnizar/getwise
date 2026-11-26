@@ -24,6 +24,17 @@ PHOTOS = {
     "a-kredit-kendaraan": ("photo-1734313519842-bab001a0cf00", "Deski Jayantoro", "https://unsplash.com/photos/a-row-of-motorcycles-parked-in-a-parking-lot-PMam6SysytM"),
     "a-deposito": ("photo-1741238700424-a979c06fe29b", "Mahen Rin", "https://unsplash.com/photos/a-pile-of-indonesian-rupiah-coins-u8OW4vCkBw8"),
     "a-investasi": ("photo-1768055105681-7d2096c5165f", "Jakub Żerdzicki", "https://unsplash.com/photos/trader-analyzing-stock-market-charts-on-multiple-screens-j_hho1mE47s"),
+    # artikel gelombang 2
+    "a2-spt": ("photo-1454165804606-c3d57bc86b40", "Scott Graham", "https://unsplash.com/photos/person-holding-pencil-near-laptop-computer-5fNmWej4tAA"),
+    "a2-lembur": ("photo-1567756396406-f529ebb5583d", "Blunimo Digital", "https://unsplash.com/photos/city-with-high-rise-buildings-during-night-time-Qq0tmcUrOTM"),
+    "a2-negosiasi": ("photo-1758873268315-59a677aec4ba", "Vitaly Gariev", "https://unsplash.com/photos/two-colleagues-discussing-ideas-in-a-modern-office-EQJbQS0tUic"),
+    "a2-anggaran": ("photo-1631511258193-252ab3da6b8b", "Sasun Bughdaryan", "https://unsplash.com/photos/a-calculator-pen-and-money-on-a-table-X4VwfPzy_2o"),
+    "a2-jht": ("photo-1619149808494-d9a0a7eba166", "Mufid Majnun", "https://unsplash.com/photos/person-holding-5000-indonesian-rupiah-UAx6M-vTkos"),
+    "a2-pinjam": ("photo-1688226423273-bc2f526795d5", "naufal jajuli", "https://unsplash.com/photos/a-person-holding-a-bunch-of-money-in-their-hand-gtdj9dU3u7s"),
+    "a2-takeover": ("photo-1626178793926-22b28830aa30", "Towfiqu barbhuiya", "https://unsplash.com/photos/man-holding-model-house-at-desk-with-calculator-05XcCfTOzN4"),
+    "a2-sbn": ("photo-1533805994737-558461dcb28e", "Nick Agus Arya", "https://unsplash.com/photos/red-and-white-flag-under-blue-sky-during-daytime-5i3oyOrojvk"),
+    "a2-reksadana": ("photo-1781246435700-afec19012b45", "Ngital", "https://unsplash.com/photos/laptop-with-charts-on-a-desk-by-a-sunny-window-8OYcY9CRP_0"),
+    "a2-darurat": ("photo-1607863680198-23d4b2565df0", "Andre Taissin", "https://unsplash.com/photos/pink-pig-coin-bank-on-brown-wooden-table-5OUMf1Mr5pU"),
 }
 
 

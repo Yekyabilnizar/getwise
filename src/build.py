@@ -49,14 +49,17 @@ def main():
         words = len(re.sub(r"<[^>]+>", " ", " ".join(b for _, b in a["body"])).split())
         a["minutes"] = max(3, round(words / 200))
         a["chart"] = next((CHARTS[k] for _, b in ARTICLES_RAW[a["slug"]] for k in re.findall(r"\[\[(CH_\w+)\]\]", b)), "")
-    guide_of = {a["calc"]: a for a in ARTICLES}
+    guide_of, guides_of = {}, {}
+    for a in ARTICLES:
+        guide_of.setdefault(a["calc"], a)
+        guides_of.setdefault(a["calc"], []).append(a)
     for c in CALCS:
         c["photo"] = photo(c["id"])
     for a in ARTICLES:
-        a["photo"] = photo("a-" + a["calc"])
+        a["photo"] = photo(a.get("photo", "a-" + a["calc"])) if isinstance(a.get("photo", ""), str) else a["photo"]
     search = json.dumps([dict(t=c["short"], k=c["title"] + " " + c["desc"], d=c["card"], u=f"/{c['slug']}/") for c in CALCS]
                         + [dict(t=a["h1"], k=a["title"] + " " + a["desc"] + " panduan tips", d="Panduan · " + a["cat_name"], u=f"/panduan/{a['slug']}/") for a in ARTICLES], ensure_ascii=False)
-    common = dict(cfg=CONFIG, cats=CATS, v=v, rules_updated=RULES_UPDATED, search=search, all_calcs=CALCS, all_articles=ARTICLES)
+    common = dict(cfg=CONFIG, cats=CATS, v=v, rules_updated=RULES_UPDATED, search=search, all_calcs=CALCS, all_articles=ARTICLES, foot_articles=ARTICLES[::-1][:6])
     org = {"@context": "https://schema.org", "@type": "WebSite", "name": CONFIG["name1"] + CONFIG["name2"], "url": CONFIG["base"] + "/", "inLanguage": "id-ID"}
     urls = []
 
@@ -67,7 +70,7 @@ def main():
         urls.append(path)
 
     write("/", env.get_template("index.html").render(
-        **common, calcs=CALCS, articles=ARTICLES, p=photo("home"), city=photo("city"), path="/", page_cat=None, jsonld=[json.dumps(org, ensure_ascii=False)],
+        **common, calcs=CALCS, articles=ARTICLES[::-1][:8], n_articles=len(ARTICLES), p=photo("home"), city=photo("city"), path="/", page_cat=None, jsonld=[json.dumps(org, ensure_ascii=False)],
         title="GetWise – Kalkulator & Panduan PPh 21, Gaji Bersih, BPJS, KPR, Investasi 2026",
         description="Kalkulator keuangan Indonesia gratis: PPh 21 metode TER, gaji bersih, THR, iuran BPJS, simulasi KPR, kredit kendaraan, deposito, dan investasi. Aturan terbaru 2026."))
 
@@ -83,7 +86,7 @@ def main():
             {"@type": "ListItem", "position": 2, "name": cat["name"], "item": CONFIG["base"] + "/#" + cat["id"]},
             {"@type": "ListItem", "position": 3, "name": c["short"], "item": CONFIG["base"] + path}]}
         write(path, env.get_template("calc.html").render(
-            **common, c=c, cat=cat, related=[byid[r] for r in c["related"] if r in byid], guide=guide_of.get(c["id"]), p=c["photo"], chart=guide_of.get(c["id"], {}).get("chart", ""), path=path, page_cat=c["cat"],
+            **common, c=c, cat=cat, related=[byid[r] for r in c["related"] if r in byid], guide=guide_of.get(c["id"]), guides=guides_of.get(c["id"], []), p=c["photo"], chart=guide_of.get(c["id"], {}).get("chart", ""), path=path, page_cat=c["cat"],
             title=c["title"], description=c["desc"], jsonld=[json.dumps(x, ensure_ascii=False) for x in (ld_app, ld_faq, ld_bc)]))
 
     name = CONFIG["name1"] + CONFIG["name2"]
@@ -97,7 +100,7 @@ def main():
               "publisher": {"@type": "Organization", "name": name, "logo": {"@type": "ImageObject", "url": CONFIG["base"] + "/static/img/icon-512.png"}},
               "mainEntityOfPage": CONFIG["base"] + path}
         write(path, env.get_template("article.html").render(
-            **common, a=a, p=a["photo"], calc=byid[a["calc"]], others=[x for x in ARTICLES if x is not a][:5], path=path, page_cat="panduan",
+            **common, a=a, p=a["photo"], calc=byid[a["calc"]], others=([x for x in ARTICLES if x is not a and x["cat"] == a["cat"]] + [x for x in ARTICLES if x is not a and x["cat"] != a["cat"]])[:5], path=path, page_cat="panduan",
             title=a["title"], description=a["desc"], jsonld=[json.dumps(ld, ensure_ascii=False)]))
     for slug, (h1, body) in PAGES.items():
         path = f"/{slug}/"
