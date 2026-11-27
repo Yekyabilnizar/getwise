@@ -1,10 +1,18 @@
 {
-  // Konfigurasi Cloudflare Workers: sajikan folder dist/ sebagai situs statis
+  // Situs statis dari dist/ + Worker kecil untuk /api/* (formulir masukan)
   "name": "getwise",
+  "main": "worker/index.js",
   "compatibility_date": "2026-11-01",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
     "not_found_handling": "404-page",
-    "html_handling": "auto-trailing-slash"
-  }
+    "html_handling": "auto-trailing-slash",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "FEEDBACK_REPO": "Yekyabilnizar/getwise-masukan"
+  },
+  "keep_vars": true,
+  "observability": { "enabled": true }
 }
