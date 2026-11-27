@@ -309,3 +309,9 @@ main{padding:28px 0 40px}
 .hero.home.ph{min-height:600px}
 .hero.home.ph:before{background:linear-gradient(90deg,rgba(8,36,30,.95) 0%,rgba(8,36,30,.82) 40%,rgba(8,36,30,.35) 75%,rgba(8,36,30,.15) 100%),linear-gradient(0deg,rgba(8,36,30,.6),transparent 40%)}
 @media (max-width:640px){.hero.home.ph{min-height:0}.hero.home.ph:before{background:linear-gradient(180deg,rgba(8,36,30,.8),rgba(8,36,30,.92))}}
+/* v7: pemilih bahasa */
+.lang{display:flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:99px;padding:3px;flex:none}
+.lang a{color:rgba(255,255,255,.78);text-decoration:none;font-size:.78rem;font-weight:800;letter-spacing:.04em;padding:5px 11px;border-radius:99px;transition:background .2s,color .2s}
+.lang a:hover{color:#fff}.lang a.on{background:#fff;color:#0B2E26}
+.top .wrap{gap:14px}
+@media (max-width:640px){.top .wrap{flex-wrap:wrap}.lang{margin-left:auto}.nav{order:3}}
