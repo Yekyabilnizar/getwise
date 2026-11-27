@@ -60,6 +60,14 @@
         if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, function () { prompt('Salin tautan ini:', url); });
         else prompt('Salin tautan ini:', url);
       });
+      var wa = $('wa');
+      if (wa) wa.addEventListener('click', function () {
+        var p = new URLSearchParams();
+        ids.forEach(function (id) { var v = val(id); p.set(id, typeof v === 'boolean' ? (v ? '1' : '0') : v); });
+        var url = location.origin + location.pathname + '?' + p.toString();
+        var k = document.querySelector('#res .kpi.main'), head = k ? k.querySelector('small').textContent + ': ' + k.querySelector('b').textContent + '\n' : '';
+        window.open('https://wa.me/?text=' + encodeURIComponent(document.title.split(' – ')[0] + '\n' + head + 'Lihat rinciannya: ' + url), '_blank', 'noopener');
+      });
       var pr = $('print'); if (pr) pr.addEventListener('click', function () { window.print(); });
       run();
     }

@@ -5,6 +5,21 @@
   var top = document.querySelector('.top');
   var onScroll = function () { if (top) top.classList.toggle('scrolled', window.scrollY > 8); };
   window.addEventListener('scroll', onScroll, {passive: true}); onScroll();
+  // tombol kembali ke atas & bilah progres baca
+  var tt = document.getElementById('totop'), pr = document.getElementById('rprog');
+  var onS2 = function () {
+    if (tt) tt.classList.toggle('show', window.scrollY > 700);
+    if (pr) { var h = document.documentElement.scrollHeight - innerHeight; pr.style.width = (h > 0 ? Math.min(100, scrollY / h * 100) : 0) + '%'; }
+  };
+  window.addEventListener('scroll', onS2, {passive: true}); onS2();
+  if (tt) tt.addEventListener('click', function () { window.scrollTo({top: 0, behavior: reduce ? 'auto' : 'smooth'}); });
+  // salin tautan artikel
+  document.querySelectorAll('.s-cp').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var u = b.getAttribute('data-url'), done = function () { b.textContent = '✓ Tersalin'; setTimeout(function () { b.textContent = '🔗 Salin tautan'; }, 2000); };
+      if (navigator.clipboard) navigator.clipboard.writeText(u).then(done, function () { prompt('Salin tautan ini:', u); }); else prompt('Salin tautan ini:', u);
+    });
+  });
   if (reduce || !('IntersectionObserver' in window)) { document.documentElement.classList.remove('js'); return; }
 
   // muncul saat digulir, berurutan di dalam grid
