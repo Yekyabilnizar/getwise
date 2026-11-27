@@ -2,10 +2,10 @@
 {% block hero %}
 <section class="hero ph">{{ ph.bg(p) }}<div class="wrap hero-grid sm">
   <div>
-  <div class="crumb"><a href="/">Beranda</a> › <a href="/#{{ c.cat }}">{{ cat.name }}</a> › {{ c.short }}</div>
+  <div class="crumb"><a href="{{ home_url }}">{{ t.home }}</a> › <a href="{{ home_url }}#{{ c.cat }}">{{ cat.name }}</a> › {{ c.short }}</div>
   <h1>{{ c.h1 }}</h1>
   <p class="lead">{{ c.lead }}</p>
-  <div class="hmeta"><span>✔ Aturan per {{ rules_updated }}</span><span>✔ Gratis, tanpa daftar</span>{% if guide %}<a href="/panduan/{{ guide.slug }}/">📖 Baca panduannya</a>{% endif %}</div>
+  <div class="hmeta"><span>✔ {{ t.rules_as_of }} {{ rules_updated }}</span><span>✔ {{ t.free_nosignup }}</span>{% if guide %}<a href="{{ guide.url }}">{{ t.read_guide }}</a>{% endif %}</div>
   </div>
   <div class="hero-ill" aria-hidden="true"><img src="/static/img/il/{{ c.id }}.svg" alt="" width="240" height="160"></div>
 </div></section>
@@ -13,27 +13,27 @@
 {% block content %}
 <div class="calc-grid"><div>
   <form class="card tool" id="calc" autocomplete="off" novalidate>
-    <div class="tool-h"><b>Isi data Anda</b><span>Hasil langsung diperbarui saat angka diubah</span></div>
+    <div class="tool-h"><b>{{ t.fill_data }}</b><span>{{ t.live_note }}</span></div>
     <div class="fields">{{ c.form|safe }}</div>
-    {% if c.opts %}<details class="opts"><summary>Pengaturan lanjutan</summary><div class="fields" style="margin-top:12px">{{ c.opts|safe }}</div></details>{% endif %}
-    <div class="btns"><button class="btn" type="submit">Hitung</button><button class="btn sec" type="button" id="share">🔗 Salin tautan hasil</button><button class="btn sec" type="button" id="wa">💬 Kirim via WhatsApp</button><button class="btn sec" type="button" id="print">🖨️ Cetak</button></div>
+    {% if c.opts %}<details class="opts"><summary>{{ t.advanced }}</summary><div class="fields" style="margin-top:12px">{{ c.opts|safe }}</div></details>{% endif %}
+    <div class="btns"><button class="btn" type="submit">{{ t.b_calc }}</button><button class="btn sec" type="button" id="share">{{ t.b_share }}</button><button class="btn sec" type="button" id="wa">{{ t.b_wa }}</button><button class="btn sec" type="button" id="print">{{ t.b_print }}</button></div>
     <div class="res" id="res" aria-live="polite"></div>
   </form>
   <article class="card prose" id="isi">
     {% for h, body in c.sections %}<h2 id="s{{ loop.index }}">{{ h }}</h2>{{ body|safe }}{% if loop.first and chart %}{{ chart|safe }}{% endif %}{% endfor %}
-    {% if guide %}<a class="guide-cta" href="/panduan/{{ guide.slug }}/"><img src="/static/img/il/{{ guide.img }}.svg" alt="" width="120" height="80" loading="lazy"><span><small>Panduan lengkap</small><b>{{ guide.h1 }}</b><em>Pengertian, aturan, dan tips praktis · {{ guide.minutes }} menit baca →</em></span></a>{% endif %}
-    <h2 id="faq">Pertanyaan yang sering diajukan</h2>
+    {% if guide %}<a class="guide-cta" href="{{ guide.url }}"><img src="/static/img/il/{{ guide.img }}.svg" alt="" width="120" height="80" loading="lazy"><span><small>{{ t.full_guide }}</small><b>{{ guide.h1 }}</b><em>{{ t.guide_sub }} · {{ guide.minutes }} {{ t.min_read }} →</em></span></a>{% endif %}
+    <h2 id="faq">{{ t.faq_long }}</h2>
     <div class="faq">{% for q, a in c.faq %}<details><summary>{{ q }}</summary><p>{{ a|safe }}</p></details>{% endfor %}</div>
-    <h2 id="sumber">Dasar aturan dan sumber</h2>
-    <ul class="src">{% for t, u in c.sources %}<li>{% if u %}<a href="{{ u }}" rel="nofollow noopener" target="_blank">{{ t }}</a>{% else %}{{ t }}{% endif %}</li>{% endfor %}</ul>
-    <p class="upd">Terakhir diperbarui: {{ rules_updated }}. Hasil tidak sesuai atau aturan sudah berubah? <a href="/masukan/?dari=/{{ c.slug }}/&amp;jenis=kesalahan">Laporkan di sini</a>.</p>
+    <h2 id="sumber">{{ t.sources_h }}</h2>
+    <ul class="src">{% for s, u in c.sources %}<li>{% if u %}<a href="{{ u }}" rel="nofollow noopener" target="_blank">{{ s }}</a>{% else %}{{ s }}{% endif %}</li>{% endfor %}</ul>
+    <p class="upd">{{ t.last_upd }}: {{ rules_updated }}. {{ t.report_q }} <a href="{{ purl.masukan }}?dari={{ c.url }}&amp;jenis=kesalahan">{{ t.report_a }}</a>.</p>
   </article>
 </div>
 <aside class="side">
-  <div class="card"><h3>Isi halaman</h3><ul class="toc">{% for h, body in c.sections %}<li><a href="#s{{ loop.index }}">{{ h }}</a></li>{% endfor %}<li><a href="#faq">Pertanyaan umum</a></li></ul></div>
-  {% if guides %}<div class="card"><h3>Panduan terkait</h3><div class="rel">{% for g in guides %}<a href="/panduan/{{ g.slug }}/"><img src="/static/img/il/{{ g.img }}.svg" alt="" width="54" height="36" loading="lazy"><span>{{ g.h1 }}</span></a>{% endfor %}</div></div>{% endif %}
-  <div class="card"><h3>Kalkulator terkait</h3><div class="rel">{% for r in related %}<a href="/{{ r.slug }}/"><img src="/static/img/il/{{ r.id }}.svg" alt="" width="54" height="36" loading="lazy"><span>{{ r.short }}</span></a>{% endfor %}</div></div>
-  <div class="card note info" style="margin:0">🔒 Semua hitungan berjalan di peramban Anda. Angka yang Anda isi tidak dikirim ke server.</div>
+  <div class="card"><h3>{{ t.on_page }}</h3><ul class="toc">{% for h, body in c.sections %}<li><a href="#s{{ loop.index }}">{{ h }}</a></li>{% endfor %}<li><a href="#faq">{{ t.faq_h }}</a></li></ul></div>
+  {% if guides %}<div class="card"><h3>{{ t.rel_guides }}</h3><div class="rel">{% for g in guides %}<a href="{{ g.url }}"><img src="/static/img/il/{{ g.img }}.svg" alt="" width="54" height="36" loading="lazy"><span>{{ g.h1 }}</span></a>{% endfor %}</div></div>{% endif %}
+  <div class="card"><h3>{{ t.rel_calcs }}</h3><div class="rel">{% for r in related %}<a href="{{ r.url }}"><img src="/static/img/il/{{ r.id }}.svg" alt="" width="54" height="36" loading="lazy"><span>{{ r.short }}</span></a>{% endfor %}</div></div>
+  <div class="card note info" style="margin:0">{{ t.private_note }}</div>
 </aside></div>
 {% endblock %}
 {% block scripts %}<script src="/static/js/pages/{{ c.id }}.js?v={{ v }}"></script>{% endblock %}

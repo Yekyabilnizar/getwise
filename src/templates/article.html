@@ -2,10 +2,10 @@
 {% block hero %}
 <section class="hero ph">{{ ph.bg(p) }}<div class="wrap hero-grid sm">
   <div>
-  <div class="crumb"><a href="/">Beranda</a> › <a href="/panduan/">Panduan</a> › {{ a.cat_name }}</div>
+  <div class="crumb"><a href="{{ home_url }}">{{ t.home }}</a> › <a href="{{ guides_url }}">{{ t.guides }}</a> › {{ a.cat_name }}</div>
   <h1>{{ a.h1 }}</h1>
   <p class="lead">{{ a.lead }}</p>
-  <div class="hmeta"><span>🕒 {{ a.minutes }} menit baca</span><span>📅 Diperbarui {{ a.date }}</span></div>
+  <div class="hmeta"><span>🕒 {{ a.minutes }} {{ t.min_read }}</span><span>📅 {{ t.updated }} {{ a.date }}</span></div>
   </div>
   <div class="hero-ill" aria-hidden="true"><img src="/static/img/il/{{ a.img }}.svg" alt="" width="240" height="160"></div>
 </div></section>
@@ -13,17 +13,17 @@
 {% block content %}<div class="rprog" aria-hidden="true"><i id="rprog"></i></div>
 <div class="calc-grid"><div>
   <article class="card prose article">
-    <nav class="intoc" aria-label="Daftar isi"><b>Daftar isi</b><ol>{% for h, body in a.body %}<li><a href="#s{{ loop.index }}">{{ h }}</a></li>{% endfor %}</ol></nav>
+    <nav class="intoc" aria-label="{{ t.toc }}"><b>{{ t.toc }}</b><ol>{% for h, body in a.body %}<li><a href="#s{{ loop.index }}">{{ h }}</a></li>{% endfor %}</ol></nav>
     {% for h, body in a.body %}<h2 id="s{{ loop.index }}">{{ h }}</h2>{{ body|safe }}{% endfor %}
-    <a class="guide-cta calc" href="/{{ calc.slug }}/"><img src="/static/img/il/{{ calc.id }}.svg" alt="" width="120" height="80" loading="lazy"><span><small>Coba hitung sendiri</small><b>{{ calc.short }}</b><em>{{ calc.card }} →</em></span></a>
-    {% if a.faq %}<h2>Pertanyaan umum</h2><div class="faq">{% for q, x in a.faq %}<details><summary>{{ q }}</summary><p>{{ x|safe }}</p></details>{% endfor %}</div>{% endif %}
-    <div class="share"><b>Bagikan artikel ini:</b>{% set u = (cfg.base ~ path)|urlencode %}{% set t = a.h1|urlencode %}<a class="s-wa" href="https://wa.me/?text={{ t }}%20{{ u }}" target="_blank" rel="noopener">WhatsApp</a><a class="s-fb" href="https://www.facebook.com/sharer/sharer.php?u={{ u }}" target="_blank" rel="noopener">Facebook</a><a class="s-x" href="https://twitter.com/intent/tweet?url={{ u }}&amp;text={{ t }}" target="_blank" rel="noopener">X</a><a class="s-tg" href="https://t.me/share/url?url={{ u }}&amp;text={{ t }}" target="_blank" rel="noopener">Telegram</a><button type="button" class="s-cp" data-url="{{ cfg.base }}{{ path }}">🔗 Salin tautan</button></div>
-    <div class="fbbox">🤔 Ada yang kurang jelas atau keliru di artikel ini? <a href="/masukan/?dari=/panduan/{{ a.slug }}/">Kirim masukan</a></div>
-    <p class="upd">Ditulis oleh tim {{ cfg.name1 }}{{ cfg.name2 }} · Diperbarui {{ a.date }}. Artikel ini bersifat informasi umum, bukan nasihat keuangan, pajak, atau hukum.</p>
+    <a class="guide-cta calc" href="{{ calc.url }}"><img src="/static/img/il/{{ calc.id }}.svg" alt="" width="120" height="80" loading="lazy"><span><small>{{ t.try_calc }}</small><b>{{ calc.short }}</b><em>{{ calc.card }} →</em></span></a>
+    {% if a.faq %}<h2>{{ t.faq_h }}</h2><div class="faq">{% for q, x in a.faq %}<details><summary>{{ q }}</summary><p>{{ x|safe }}</p></details>{% endfor %}</div>{% endif %}
+    <div class="share"><b>{{ t.share_h }}</b>{% set u = (cfg.base ~ path)|urlencode %}{% set tt = a.h1|urlencode %}<a class="s-wa" href="https://wa.me/?text={{ tt }}%20{{ u }}" target="_blank" rel="noopener">WhatsApp</a><a class="s-fb" href="https://www.facebook.com/sharer/sharer.php?u={{ u }}" target="_blank" rel="noopener">Facebook</a><a class="s-x" href="https://twitter.com/intent/tweet?url={{ u }}&amp;text={{ tt }}" target="_blank" rel="noopener">X</a><a class="s-tg" href="https://t.me/share/url?url={{ u }}&amp;text={{ tt }}" target="_blank" rel="noopener">Telegram</a><button type="button" class="s-cp" data-url="{{ cfg.base }}{{ path }}">{{ t.copy_link }}</button></div>
+    <div class="fbbox">{{ t.art_fb_q }} <a href="{{ purl.masukan }}?dari={{ a.url }}">{{ t.send_feedback }}</a></div>
+    <p class="upd">{{ t.written_by }} {{ cfg.name1 }}{{ cfg.name2 }}{{ ' team' if lang == 'en' else '' }} · {{ t.updated }} {{ a.date }}. {{ t.art_disc }}</p>
   </article>
 </div>
 <aside class="side">
-  <a class="card side-calc" href="/{{ calc.slug }}/"><img src="/static/img/il/{{ calc.id }}.svg" alt="" width="240" height="160"><b>{{ calc.short }}</b><span>{{ calc.card }}</span><span class="btn">Buka kalkulator</span></a>
-  <div class="card"><h3>Panduan lainnya</h3><div class="rel">{% for r in others %}<a href="/panduan/{{ r.slug }}/"><img src="/static/img/il/{{ r.img }}.svg" alt="" width="54" height="36" loading="lazy"><span>{{ r.h1 }}</span></a>{% endfor %}</div></div>
+  <a class="card side-calc" href="{{ calc.url }}"><img src="/static/img/il/{{ calc.id }}.svg" alt="" width="240" height="160"><b>{{ calc.short }}</b><span>{{ calc.card }}</span><span class="btn">{{ t.open_calc }}</span></a>
+  <div class="card"><h3>{{ t.other_guides }}</h3><div class="rel">{% for r in others %}<a href="{{ r.url }}"><img src="/static/img/il/{{ r.img }}.svg" alt="" width="54" height="36" loading="lazy"><span>{{ r.h1 }}</span></a>{% endfor %}</div></div>
 </aside></div>
 {% endblock %}

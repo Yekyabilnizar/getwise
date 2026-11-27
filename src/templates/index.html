@@ -2,50 +2,38 @@
 {% block hero %}
 <section class="hero home ph">{{ ph.bg(p) }}<div class="wrap hero-grid">
   <div>
-    <span class="eyebrow">Kalkulator & panduan keuangan Indonesia</span>
-    <h1>Hitung pajak, gaji, cicilan, dan investasi dengan yakin</h1>
-    <p class="lead">PPh 21 metode TER, gaji bersih, THR, BPJS, KPR, kredit kendaraan, deposito, dan investasi. Mengikuti aturan terbaru 2026, lengkap dengan penjelasan langkah demi langkah.</p>
-    <div class="search"><input id="q" type="search" placeholder="Cari kalkulator… (mis. PPh 21, KPR, BPJS)" aria-label="Cari kalkulator"><div class="sres" id="sres"></div></div>
-    <div class="chips">{% for c in calcs[:5] %}<a href="/{{ c.slug }}/">{{ c.short|replace('Kalkulator ','')|replace('Simulasi ','') }}</a>{% endfor %}</div>
+    <span class="eyebrow">{{ t.eyebrow }}</span>
+    <h1>{{ t.hero_h1 }}</h1>
+    <p class="lead">{{ t.hero_lead }}</p>
+    <div class="search"><input id="q" type="search" placeholder="{{ t.search_ph }}" aria-label="{{ t.search_label }}"><div class="sres" id="sres"></div></div>
+    <div class="chips">{% for c in calcs[:5] %}<a href="{{ c.url }}">{{ c.chip }}</a>{% endfor %}</div>
   </div>
   <div class="hero-art" aria-hidden="true">
-    <div class="hcard big"><img src="/static/img/il/kpr.svg" alt=""><div><small>Simulasi KPR</small><b>Rp3.671.968<span>/bln</span></b></div></div>
-    <div class="hcard c2"><img src="/static/img/il/pph21.svg" alt=""><div><small>PPh 21 Januari</small><b>Rp261.350</b></div></div>
-    <div class="hcard c3"><img src="/static/img/il/investasi.svg" alt=""><div><small>Investasi 10 tahun</small><b>Rp201,7 jt</b></div></div>
+    <div class="hcard big"><img src="/static/img/il/kpr.svg" alt=""><div><small>{{ t.hc1 }}</small><b>{{ t.hc1v }}<span>{{ t.per_month }}</span></b></div></div>
+    <div class="hcard c2"><img src="/static/img/il/pph21.svg" alt=""><div><small>{{ t.hc2 }}</small><b>{{ 'Rp261,350' if lang == 'en' else 'Rp261.350' }}</b></div></div>
+    <div class="hcard c3"><img src="/static/img/il/investasi.svg" alt=""><div><small>{{ t.hc3 }}</small><b>{{ t.hc3v }}</b></div></div>
   </div>
 </div></section>
-<div class="stats"><div class="wrap"><div><b data-n="{{ calcs|length }}">{{ calcs|length }}</b> kalkulator</div><div><b data-n="{{ n_articles }}">{{ n_articles }}</b> panduan</div><div><b data-n="2026">2026</b> aturan terbaru</div><div><b><span data-n="100">100</span>%</b> gratis &amp; privat</div></div></div>
-<div class="rules"><div class="wrap"><b>Aturan yang kami pakai:</b><div class="rtrack"><div class="rlist">{% for k in [0, 1] %}{% for r in ["PPh 21 metode TER (PP 58/2023)", "Tarif Pasal 17 UU HPP", "PTKP Rp54 juta", "Batas upah JP Rp11.086.300 (Mar 2026)", "Batas upah BPJS Kesehatan Rp12 juta", "Upah lembur 1/173 (PP 35/2021)", "THR Permenaker 6/2016", "Pajak bunga deposito 20%"] %}<span{% if k %} aria-hidden="true"{% endif %}>✓ {{ r }}</span>{% endfor %}{% endfor %}</div></div></div></div>
+<div class="stats"><div class="wrap"><div><b data-n="{{ calcs|length }}">{{ calcs|length }}</b> {{ t.st_calcs }}</div><div><b data-n="{{ n_articles }}">{{ n_articles }}</b> {{ t.st_guides }}</div><div><b data-n="2026">2026</b> {{ t.st_rules }}</div><div><b><span data-n="100">100</span>%</b> {{ t.st_free|safe }}</div></div></div>
+<div class="rules"><div class="wrap"><b>{{ t.rules_t }}</b><div class="rtrack"><div class="rlist">{% for k in [0, 1] %}{% for r in t.rules %}<span{% if k %} aria-hidden="true"{% endif %}>✓ {{ r }}</span>{% endfor %}{% endfor %}</div></div></div></div>
 {% endblock %}
 {% block content %}
-<section class="how"><div class="hstep"><span>1</span><div><b>Pilih kalkulator</b><p>Gaji, pajak, BPJS, KPR, kredit, deposito, atau investasi.</p></div></div>
-<div class="hstep"><span>2</span><div><b>Isi angka Anda</b><p>Hasil langsung muncul lengkap dengan langkah hitungnya.</p></div></div>
-<div class="hstep"><span>3</span><div><b>Pelajari &amp; bagikan</b><p>Baca panduannya, lalu salin tautan hasil untuk HRD atau pasangan.</p></div></div></section>
+<section class="how">{% for h, d in t.how %}<div class="hstep"><span>{{ loop.index }}</span><div><b>{{ h|safe }}</b><p>{{ d }}</p></div></div>{% endfor %}</section>
 <section class="cat" id="kalkulator">
-<div class="cat-h"><h2>Semua kalkulator</h2><span>Pilih sesuai kebutuhan Anda</span></div>
+<div class="cat-h"><h2>{{ t.all_calcs }}</h2><span>{{ t.all_calcs_sub }}</span></div>
 <div class="grid g4">{% for c in calcs %}{% set cat = cats|selectattr('id','equalto',c.cat)|first %}
-<a class="card ccard"{% if loop.first or calcs[loop.index0-1].cat != c.cat %} id="{{ c.cat }}"{% endif %} href="/{{ c.slug }}/">{{ ph.thumb(c.photo, c.id) }}<span class="tag">{{ cat.short }}</span><b>{{ c.short }}</b><span>{{ c.card }}</span><span class="go">Hitung sekarang →</span></a>
+<a class="card ccard"{% if loop.first or calcs[loop.index0-1].cat != c.cat %} id="{{ c.cat }}"{% endif %} href="{{ c.url }}">{{ ph.thumb(c.photo, c.id) }}<span class="tag">{{ cat.short }}</span><b>{{ c.short }}</b><span>{{ c.card }}</span><span class="go">{{ t.calc_now }}</span></a>
 {% endfor %}</div>
 </section>
 <section class="cat" id="panduan">
-<div class="cat-h"><h2>Panduan & tips keuangan</h2><span>Artikel terbaru: pengertian, aturan, dan tips praktis</span><a class="more" href="/panduan/">Lihat semua →</a></div>
+<div class="cat-h"><h2>{{ t.guides_h }}</h2><span>{{ t.guides_sub }}</span><a class="more" href="{{ guides_url }}">{{ t.see_all }}</a></div>
 <div class="grid g4">{% for a in articles %}{% include "_acard.html" %}{% endfor %}</div>
 </section>
-<section class="band ph">{{ ph.bg(city) }}<div class="band-in"><div><h2>Keputusan keuangan yang lebih tenang</h2><p>Dari slip gaji sampai cicilan rumah, setiap angka dijelaskan langkah demi langkah sesuai aturan yang berlaku di Indonesia.</p></div><div class="band-btns"><a class="btn gold" href="/kalkulator-gaji-bersih/">Hitung gaji bersih</a><a class="btn ghost" href="/panduan/">Baca panduan</a></div></div></section>
+<section class="band ph">{{ ph.bg(city) }}<div class="band-in"><div><h2>{{ t.band_h }}</h2><p>{{ t.band_p }}</p></div><div class="band-btns"><a class="btn gold" href="{{ thp_url }}">{{ t.band_b1 }}</a><a class="btn ghost" href="{{ guides_url }}">{{ t.band_b2 }}</a></div></div></section>
 <div class="grid two" style="margin-top:34px">
-  <div class="card why"><h2>Kenapa {{ cfg.name1 }}{{ cfg.name2 }}?</h2>
-    <ul class="ticks">
-      <li><b>Mengikuti aturan terbaru</b>: TER PPh 21, PTKP, tarif Pasal 17 UU HPP, dan batas upah BPJS 2026.</li>
-      <li><b>Rinci dan transparan</b>: setiap hasil menunjukkan langkah hitungnya, bukan sekadar angka akhir.</li>
-      <li><b>Privat</b>: semua hitungan berjalan di peramban Anda; tidak ada data yang dikirim ke server.</li>
-      <li><b>Bisa dibagikan</b>: salin tautan hasil untuk dikirim ke rekan, HRD, atau pasangan.</li>
-    </ul></div>
-  <div class="card"><h2 style="margin-top:0">Pertanyaan umum</h2>
-    <div class="faq">
-      <details><summary>Apakah hasilnya sama dengan potongan di slip gaji?</summary><p>Biasanya sangat dekat. Perbedaan kecil bisa muncul karena komponen gaji, pembulatan, atau kebijakan perusahaan (misalnya pajak ditanggung perusahaan). Gunakan sebagai pembanding, lalu konfirmasi ke HRD.</p></details>
-      <details><summary>Seberapa sering aturan diperbarui?</summary><p>Setiap ada perubahan resmi (misalnya batas upah Jaminan Pensiun tiap Maret). Tanggal pembaruan tertulis di setiap halaman.</p></details>
-      <details><summary>Apakah gratis?</summary><p>Ya, seluruh kalkulator dan panduan gratis tanpa pendaftaran. Situs ini dibiayai oleh iklan.</p></details>
-    </div></div>
+  <div class="card why"><h2>{{ t.why_h }} {{ cfg.name1 }}{{ cfg.name2 }}?</h2>
+    <ul class="ticks">{% for h, d in t.why %}<li><b>{{ h }}</b>: {{ d }}</li>{% endfor %}</ul></div>
+  <div class="card"><h2 style="margin-top:0">{{ t.faq_h }}</h2>
+    <div class="faq">{% for q, a in t.home_faq %}<details><summary>{{ q }}</summary><p>{{ a }}</p></details>{% endfor %}</div></div>
 </div>
 {% endblock %}
-

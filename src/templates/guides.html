@@ -1,9 +1,9 @@
 {% extends "base.html" %}{% import "_ph.html" as ph %}
 {% block hero %}
 <section class="hero ph">{{ ph.bg(p) }}<div class="wrap hero-grid sm">
-  <div><div class="crumb"><a href="/">Beranda</a> › Panduan</div>
-  <h1>Panduan & Tips Keuangan</h1>
-  <p class="lead">Penjelasan sederhana tentang pajak gaji, BPJS, KPR, kredit, deposito, dan investasi, lengkap dengan tips praktis dan kalkulator untuk mencobanya.</p></div>
+  <div><div class="crumb"><a href="{{ home_url }}">{{ t.home }}</a> › {{ t.guides }}</div>
+  <h1>{{ t.guides_title }}</h1>
+  <p class="lead">{{ t.guides_lead }}</p></div>
   <div class="hero-ill" aria-hidden="true"><img src="/static/img/il/panduan.svg" alt="" width="240" height="160"></div>
 </div></section>
 {% endblock %}

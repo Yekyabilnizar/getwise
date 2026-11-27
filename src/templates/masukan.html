@@ -1,44 +1,38 @@
 {% extends "base.html" %}{% import "_ph.html" as ph %}
 {% block hero %}
 <section class="hero ph sm">{{ ph.bg(p) }}<div class="wrap hero-grid sm">
-  <div><div class="crumb"><a href="/">Beranda</a> › Masukan</div>
-  <h1>Kirim Masukan</h1>
-  <p class="lead">Ada ide kalkulator baru, menemukan hasil yang keliru, atau tampilan yang mengganggu? Ceritakan kepada kami. Setiap masukan dibaca langsung oleh pengelola {{ cfg.name1 }}{{ cfg.name2 }}.</p></div>
+  <div><div class="crumb"><a href="{{ home_url }}">{{ t.home }}</a> › {{ t.feedback }}</div>
+  <h1>{{ t.fb_title }}</h1>
+  <p class="lead">{{ t.fb_lead }} {{ cfg.name1 }}{{ cfg.name2 }}.</p></div>
 </div></section>
 {% endblock %}
 {% block content %}
 <div class="calc-grid"><div>
   <form class="card tool fb" id="fb" novalidate>
-    <div class="tool-h"><b>Formulir masukan</b><span>Kolom bertanda * wajib diisi</span></div>
-    <div class="fld"><label>Jenis masukan *</label>
-      <div class="seg" role="radiogroup">
-        <label><input type="radio" name="jenis" value="saran" checked><span>💡 Saran / ide</span></label>
-        <label><input type="radio" name="jenis" value="kesalahan"><span>🧮 Hasil keliru</span></label>
-        <label><input type="radio" name="jenis" value="kalkulator"><span>➕ Usulan konten</span></label>
-        <label><input type="radio" name="jenis" value="tampilan"><span>🖥️ Tampilan / teknis</span></label>
-        <label><input type="radio" name="jenis" value="lainnya"><span>💬 Lainnya</span></label>
-      </div></div>
-    <div class="fld"><label for="halaman">Halaman terkait</label>
-      <select id="halaman"><option value="">– Umum / tidak spesifik –</option>
-        <optgroup label="Kalkulator">{% for c in all_calcs %}<option value="/{{ c.slug }}/">{{ c.short }}</option>{% endfor %}</optgroup>
-        <optgroup label="Panduan">{% for a in all_articles %}<option value="/panduan/{{ a.slug }}/">{{ a.h1 }}</option>{% endfor %}</optgroup>
+    <div class="tool-h"><b>{{ t.fb_form }}</b><span>{{ t.fb_req }}</span></div>
+    <div class="fld"><label>{{ t.fb_type }}</label>
+      <div class="seg" role="radiogroup">{% for v, l in t.fb_types %}<label><input type="radio" name="jenis" value="{{ v }}"{% if loop.first %} checked{% endif %}><span>{{ l }}</span></label>{% endfor %}</div></div>
+    <div class="fld"><label for="halaman">{{ t.fb_page }}</label>
+      <select id="halaman"><option value="">{{ t.fb_general }}</option>
+        <optgroup label="{{ t.foot_calcs }}">{% for c in all_calcs %}<option value="{{ c.url }}">{{ c.short }}</option>{% endfor %}</optgroup>
+        <optgroup label="{{ t.foot_guides }}">{% for a in all_articles %}<option value="{{ a.url }}">{{ a.h1 }}</option>{% endfor %}</optgroup>
       </select></div>
-    <div class="fld"><label for="pesan">Masukan Anda *</label>
-      <textarea id="pesan" rows="7" maxlength="3000" placeholder="Contoh: Di kalkulator PPh 21, untuk gaji Rp12 juta status K/1, hasil Desember berbeda dengan slip gaji saya sebesar …"></textarea>
-      <div class="h"><span id="cnt">0</span>/3000 karakter. Untuk laporan hasil keliru, sertakan angka yang Anda masukkan dan hasil yang Anda harapkan.</div></div>
+    <div class="fld"><label for="pesan">{{ t.fb_msg }}</label>
+      <textarea id="pesan" rows="7" maxlength="3000" placeholder="{{ t.fb_ph }}"></textarea>
+      <div class="h"><span id="cnt">0</span>/3000 {{ t.fb_chars }}</div></div>
     <div class="fields">
-      <div class="fld"><label for="nama">Nama (opsional)</label><div class="in"><input id="nama" maxlength="80" autocomplete="name"></div></div>
-      <div class="fld"><label for="email">Email (opsional, bila ingin dibalas)</label><div class="in"><input id="email" type="email" maxlength="120" autocomplete="email"></div></div>
+      <div class="fld"><label for="nama">{{ t.fb_name }}</label><div class="in"><input id="nama" maxlength="80" autocomplete="name"></div></div>
+      <div class="fld"><label for="email">{{ t.fb_email }}</label><div class="in"><input id="email" type="email" maxlength="120" autocomplete="email"></div></div>
     </div>
-    <div class="hp" aria-hidden="true"><label>Situs web <input id="website" tabindex="-1" autocomplete="off"></label></div>
-    <p class="h small">Masukan disimpan secara privat dan hanya dibaca oleh pengelola. Jangan menulis data sensitif seperti nomor rekening, NIK, atau kata sandi. Lihat <a href="/privasi/">Kebijakan Privasi</a>.</p>
-    <div class="btns"><button class="btn" type="submit" id="kirim">Kirim masukan</button></div>
+    <div class="hp" aria-hidden="true"><label>{{ t.fb_web }} <input id="website" tabindex="-1" autocomplete="off"></label></div>
+    <p class="h small">{{ t.fb_privacy }} <a href="{{ purl.privasi }}">{{ t.fb_privacy_l }}</a>.</p>
+    <div class="btns"><button class="btn" type="submit" id="kirim">{{ t.fb_send }}</button></div>
     <div id="fbmsg" aria-live="polite"></div>
   </form>
 </div>
 <aside class="side">
-  <div class="card"><h3>Apa yang terjadi setelah dikirim?</h3><ol class="steps-s"><li>Masukan masuk ke daftar kerja pengelola.</li><li>Laporan hasil keliru diperiksa terhadap aturan resmi.</li><li>Perbaikan atau konten baru diterbitkan, biasanya dalam beberapa hari.</li></ol></div>
-  <div class="card"><h3>Paling sering diminta</h3><ul><li>Kalkulator pesangon</li><li>Kalkulator zakat penghasilan</li><li>Kalkulator KTA</li></ul><p class="h">Punya usulan lain? Pilih “Usulan konten”.</p></div>
+  <div class="card"><h3>{{ t.fb_after }}</h3><ol class="steps-s">{% for s in t.fb_steps %}<li>{{ s }}</li>{% endfor %}</ol></div>
+  <div class="card"><h3>{{ t.fb_popular }}</h3><ul>{% for s in t.fb_pop %}<li>{{ s }}</li>{% endfor %}</ul><p class="h">{{ t.fb_other }}</p></div>
 </aside></div>
 {% endblock %}
 {% block scripts %}<script src="/static/js/masukan.js?v={{ v }}"></script>{% endblock %}
