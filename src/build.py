@@ -109,6 +109,11 @@ def localized(lang):
 CALCS_BY_ID = {c["id"]: c for c in CALCS}
 
 
+def og(lang, name):
+    """Alamat gambar pratinjau per halaman (dibuat oleh tools/make_og.py); kosong bila belum ada."""
+    return f"/static/og/{lang}/{name}.jpg" if (ROOT / "static/og" / lang / f"{name}.jpg").exists() else ""
+
+
 def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=True)
     if DIST.exists():
@@ -146,7 +151,7 @@ def main():
         write(home_url, env.get_template("index.html").render(
             **common, calcs=calcs, articles=arts[::-1][:8], n_articles=len(arts), p=photo("home") | ({"credit": "Photo"} if lang == "en" else {}),
             city=photo("city") | ({"credit": "Photo"} if lang == "en" else {}), thp_url=byid["gaji-bersih"]["url"],
-            path=home_url, alt={lg: PREFIX[lg] + "/" for lg in LANGS}, page_cat=None, jsonld=[json.dumps(org, ensure_ascii=False)],
+            path=home_url, alt={lg: PREFIX[lg] + "/" for lg in LANGS}, page_cat=None, jsonld=[json.dumps(org, ensure_ascii=False)], og_img=og(lang, "home"),
             title=t["home_title"], description=t["home_desc"]))
 
         for c in calcs:
@@ -162,22 +167,22 @@ def main():
             g = guide_of.get(c["id"])
             write(path, env.get_template("calc.html").render(
                 **common, c=c, cat=cat, related=[byid[r] for r in c["related"] if r in byid], guide=g, guides=guides_of.get(c["id"], []),
-                p=c["photo"], chart=g["chart"] if g else "", path=path, alt=c["alt"], page_cat=c["cat"],
+                p=c["photo"], chart=g["chart"] if g else "", path=path, og_img=og(lang, "calc-" + c["id"]), alt=c["alt"], page_cat=c["cat"],
                 title=c["title"], description=c["desc"], jsonld=[json.dumps(x, ensure_ascii=False) for x in (ld_app, ld_faq, ld_bc)]))
 
         pg = photo("panduan") | ({"credit": "Photo"} if lang == "en" else {})
         write(GUIDES[lang], env.get_template("guides.html").render(
-            **common, articles=arts, p=pg, path=GUIDES[lang], alt=GUIDES, page_cat="panduan", jsonld=[],
+            **common, articles=arts, p=pg, path=GUIDES[lang], og_img=og(lang, "guides"), alt=GUIDES, page_cat="panduan", jsonld=[],
             title=f"{t['guides_title']} – {name}", description=t["guides_desc"]))
         for a in arts:
             path = a["url"]
             ld = {"@context": "https://schema.org", "@type": "Article", "headline": a["title"], "description": a["desc"], "inLanguage": inlang,
-                  "image": CONFIG["base"] + "/static/img/og.png", "dateModified": "2026-11-27", "author": {"@type": "Organization", "name": name},
+                  "image": CONFIG["base"] + (og(lang, "a-" + a.get("id_slug", a["slug"])) or "/static/img/og.png"), "dateModified": "2026-11-27", "author": {"@type": "Organization", "name": name},
                   "publisher": {"@type": "Organization", "name": name, "logo": {"@type": "ImageObject", "url": CONFIG["base"] + "/static/img/icon-512.png"}},
                   "mainEntityOfPage": CONFIG["base"] + path}
             others = ([x for x in arts if x is not a and x["cat"] == a["cat"]] + [x for x in arts if x is not a and x["cat"] != a["cat"]])[:5]
             write(path, env.get_template("article.html").render(
-                **common, a=a, p=a["photo"], calc=byid[a["calc"]], others=others, path=path, alt=a["alt"], page_cat="panduan",
+                **common, a=a, p=a["photo"], calc=byid[a["calc"]], others=others, path=path, og_img=og(lang, "a-" + a.get("id_slug", a["slug"])), alt=a["alt"], page_cat="panduan",
                 title=a["title"], description=a["desc"], jsonld=[json.dumps(ld, ensure_ascii=False)]))
 
         pc = photo("city") | ({"credit": "Photo"} if lang == "en" else {})
