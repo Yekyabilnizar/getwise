@@ -296,12 +296,14 @@ PAGES = {
 <h2>Pengelola</h2><p>{name} dikembangkan oleh tim pengembang yang juga membuat <a href="https://getcomput.com" target="_blank" rel="noopener">GetComput</a>, platform belajar statistika berbahasa Indonesia.</p>
 <p>Ada saran kalkulator baru atau menemukan kesalahan? <a href="/kontak/">Hubungi kami</a>.</p>"""),
     "kontak": ("Kontak", """<p>Kami senang menerima saran, laporan kesalahan, atau usulan kalkulator baru.</p>
+<p>📝 Cara tercepat: isi <a href="/masukan/">formulir masukan</a>. Masukan tersimpan langsung di daftar kerja kami.</p>
 <p>📧 Email: <a href="mailto:{email}">{email}</a></p>
 <p>Agar kami bisa membantu dengan cepat, sertakan nama kalkulator, angka yang Anda masukkan, dan hasil yang menurut Anda keliru. Kami tidak dapat memberikan konsultasi pajak atau keuangan pribadi.</p>"""),
     "privasi": ("Kebijakan Privasi", """<p>Terakhir diperbarui: {updated}.</p>
 <h2>Data yang Anda masukkan</h2><p>Semua kalkulator berjalan di peramban Anda. Angka yang Anda isi (gaji, harga rumah, dan lainnya) tidak dikirim ke server kami dan tidak kami simpan. Bila Anda memakai fitur “salin tautan hasil”, angka tersebut menjadi bagian dari alamat tautan yang Anda bagikan sendiri.</p>
 <h2>Cookie, analitik, dan iklan</h2><p>Situs ini dapat memakai Google Analytics untuk memahami pemakaian situs secara agregat, serta menayangkan iklan pihak ketiga melalui Google AdSense. Google dan mitranya dapat menggunakan cookie atau pengenal serupa untuk menayangkan dan mengukur iklan, termasuk iklan yang dipersonalisasi berdasarkan kunjungan Anda ke situs ini dan situs lain.</p>
 <p>Anda dapat mengatur personalisasi iklan di <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a> dan mempelajari cara Google memakai data di <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">policies.google.com/technologies/partner-sites</a>. Pengunjung dari wilayah yang mewajibkan persetujuan akan melihat pesan persetujuan dari Google.</p>
+<h2>Formulir masukan</h2><p>Bila Anda mengirim masukan, kami menyimpan isi pesan, jenis masukan, halaman terkait, serta nama dan email bila Anda mengisinya, beserta waktu dan negara asal pengiriman. Data ini disimpan secara privat, hanya dibaca oleh pengelola untuk memperbaiki situs dan membalas pesan, dan tidak dibagikan kepada pihak lain. Anda dapat meminta penghapusan masukan melalui email di bawah.</p>
 <h2>Kontak</h2><p>Pertanyaan tentang privasi dapat dikirim ke <a href="mailto:{email}">{email}</a>.</p>"""),
     "syarat": ("Syarat Penggunaan & Penafian", """<p>Terakhir diperbarui: {updated}.</p>
 <h2>Penafian</h2><p>Semua hasil di {name} adalah <b>simulasi dan informasi umum</b>, bukan nasihat keuangan, pajak, investasi, atau hukum. Hasil dapat berbeda dari perhitungan bank, perusahaan, atau kantor pajak karena perbedaan komponen, pembulatan, kebijakan internal, atau perubahan aturan.</p>

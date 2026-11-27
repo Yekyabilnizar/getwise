@@ -108,6 +108,10 @@ def main():
             **common, p=photo("city"), path=path, page_cat=None, jsonld=[], h1=h1, title=f"{h1} – {name}", description=f"{h1} {name}, kalkulator keuangan Indonesia.",
             body=body.format(name=name, email=CONFIG["email"], updated=RULES_UPDATED)))
 
+    write("/masukan/", env.get_template("masukan.html").render(
+        **common, p=photo("panduan"), path="/masukan/", page_cat=None, jsonld=[], title=f"Kirim Masukan – {name}",
+        description=f"Kirim saran, laporan kesalahan hitung, atau usulan kalkulator baru untuk {name}."))
+
     # 404
     html = env.get_template("page.html").render(**common, p=photo("city"), path="/404.html", page_cat=None, jsonld=[], h1="Halaman tidak ditemukan", title=f"Halaman tidak ditemukan – {name}",
                                                  description="Halaman tidak ditemukan.", body='<p>Maaf, halaman yang Anda cari tidak ada. Kembali ke <a href="/">beranda</a> untuk melihat semua kalkulator.</p>')
