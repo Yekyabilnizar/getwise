@@ -16,7 +16,7 @@
     <div class="tool-h"><b>Isi data Anda</b><span>Hasil langsung diperbarui saat angka diubah</span></div>
     <div class="fields">{{ c.form|safe }}</div>
     {% if c.opts %}<details class="opts"><summary>Pengaturan lanjutan</summary><div class="fields" style="margin-top:12px">{{ c.opts|safe }}</div></details>{% endif %}
-    <div class="btns"><button class="btn" type="submit">Hitung</button><button class="btn sec" type="button" id="share">🔗 Salin tautan hasil</button><button class="btn sec" type="button" id="print">🖨️ Cetak</button></div>
+    <div class="btns"><button class="btn" type="submit">Hitung</button><button class="btn sec" type="button" id="share">🔗 Salin tautan hasil</button><button class="btn sec" type="button" id="wa">💬 Kirim via WhatsApp</button><button class="btn sec" type="button" id="print">🖨️ Cetak</button></div>
     <div class="res" id="res" aria-live="polite"></div>
   </form>
   <article class="card prose" id="isi">
@@ -26,7 +26,7 @@
     <div class="faq">{% for q, a in c.faq %}<details><summary>{{ q }}</summary><p>{{ a|safe }}</p></details>{% endfor %}</div>
     <h2 id="sumber">Dasar aturan dan sumber</h2>
     <ul class="src">{% for t, u in c.sources %}<li>{% if u %}<a href="{{ u }}" rel="nofollow noopener" target="_blank">{{ t }}</a>{% else %}{{ t }}{% endif %}</li>{% endfor %}</ul>
-    <p class="upd">Terakhir diperbarui: {{ rules_updated }}. Bila menemukan aturan yang sudah berubah, <a href="/kontak/">kabari kami</a>.</p>
+    <p class="upd">Terakhir diperbarui: {{ rules_updated }}. Hasil tidak sesuai atau aturan sudah berubah? <a href="/masukan/?dari=/{{ c.slug }}/&amp;jenis=kesalahan">Laporkan di sini</a>.</p>
   </article>
 </div>
 <aside class="side">
