@@ -17,6 +17,11 @@ from articles import ARTICLES, CHARTS
 from articles_en import ART_EN, CHARTS_EN
 from articles_more import CLOSE, EXTRA
 from articles_more_en import CLOSE_EN, EXTRA_EN
+from articles_new import NEW
+from articles_new_en import NEW_EN
+
+ARTICLES = ARTICLES + NEW   # artikel gelombang 3
+ART_EN.update(NEW_EN)
 from content import CALCS, CATS, PAGES
 from content_en import CALC_EN, CATS_EN, PAGES_EN
 from i18n import CALC_SLUG_EN, GUIDES, LANGS, PAGE_SLUG, PREFIX, T
