@@ -201,17 +201,19 @@
   }
 
   /* ---------------- format ---------------- */
+  var EN = typeof document !== 'undefined' && document.documentElement && document.documentElement.lang === 'en';
+  var TS = EN ? ',' : '.', DS = EN ? '.' : ',';
   function rp(x, dec) {
     if (x === null || x === undefined || isNaN(x)) return '–';
     var neg = x < 0; x = Math.abs(x);
     var s = (dec ? x.toFixed(dec) : Math.round(x).toString()).split('.');
-    s[0] = s[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    return (neg ? '−' : '') + 'Rp' + s.join(',');
+    s[0] = s[0].replace(/\B(?=(\d{3})+(?!\d))/g, TS);
+    return (neg ? '−' : '') + 'Rp' + s.join(DS);
   }
   function pct(x, dec) {
     var s = (x * 100).toFixed(dec === undefined ? 2 : dec);
     if (s.indexOf('.') >= 0) s = s.replace(/0+$/, '').replace(/\.$/, '');
-    return s.replace('.', ',') + '%';
+    return s.replace('.', DS) + '%';
   }
   function parseNum(s) {
     if (typeof s === 'number') return s;

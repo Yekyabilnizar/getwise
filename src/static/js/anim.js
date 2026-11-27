@@ -16,8 +16,9 @@
   // salin tautan artikel
   document.querySelectorAll('.s-cp').forEach(function (b) {
     b.addEventListener('click', function () {
-      var u = b.getAttribute('data-url'), done = function () { b.textContent = '✓ Tersalin'; setTimeout(function () { b.textContent = '🔗 Salin tautan'; }, 2000); };
-      if (navigator.clipboard) navigator.clipboard.writeText(u).then(done, function () { prompt('Salin tautan ini:', u); }); else prompt('Salin tautan ini:', u);
+      var en = document.documentElement.lang === 'en', u = b.getAttribute('data-url'), orig = b.textContent, ask = en ? 'Copy this link:' : 'Salin tautan ini:';
+      var done = function () { b.textContent = en ? '✓ Copied' : '✓ Tersalin'; setTimeout(function () { b.textContent = orig; }, 2000); };
+      if (navigator.clipboard) navigator.clipboard.writeText(u).then(done, function () { prompt(ask, u); }); else prompt(ask, u);
     });
   });
   if (reduce || !('IntersectionObserver' in window)) { document.documentElement.classList.remove('js'); return; }

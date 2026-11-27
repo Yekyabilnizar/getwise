@@ -2,15 +2,17 @@
 (function () {
   'use strict';
   var F = window.FIN, $ = function (id) { return document.getElementById(id); };
+  var EN = document.documentElement.lang === 'en', TS = EN ? ',' : '.';
+  var tr = function (id, en) { return EN ? en : id; };
   var fmtThousand = function (v) {
     var s = String(v).replace(/[^\d]/g, '');
-    return s ? s.replace(/^0+(?=\d)/, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.') : '';
+    return s ? s.replace(/^0+(?=\d)/, '').replace(/\B(?=(\d{3})+(?!\d))/g, TS) : '';
   };
   function val(id) {
     var el = $(id); if (!el) return null;
     if (el.type === 'checkbox') return el.checked;
     if (el.tagName === 'SELECT') return el.value;
-    if (el.hasAttribute('data-money')) return F.parseNum(el.value);
+    if (el.hasAttribute('data-money')) { var d = String(el.value).replace(/[^\d]/g, ''); return d ? +d : 0; }
     var v = parseFloat(String(el.value).replace(/\s/g, '').replace(',', '.'));
     return isNaN(v) ? 0 : v;
   }
@@ -18,10 +20,10 @@
     var el = $(id); if (!el) return;
     if (el.type === 'checkbox') el.checked = v === true || v === '1' || v === 'true';
     else if (el.tagName === 'SELECT') el.value = v;
-    else el.value = el.hasAttribute('data-money') ? fmtThousand(v) : String(v).replace('.', ',');
+    else el.value = el.hasAttribute('data-money') ? fmtThousand(String(v).split('.')[0]) : (EN ? String(v) : String(v).replace('.', ','));
   }
   window.UI = {
-    val: val, $: $, rp: F.rp, pct: F.pct,
+    val: val, $: $, rp: F.rp, pct: F.pct, tr: tr, EN: EN,
     row: function (cells, cls) { return '<tr' + (cls ? ' class="' + cls + '"' : '') + '>' + cells.map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>'; },
     table: function (head, rows) {
       return '<div class="tscroll"><table class="tbl"><thead><tr>' + head.map(function (h) { return '<th>' + h + '</th>'; }).join('') + '</tr></thead><tbody>' + rows.join('') + '</tbody></table></div>';
@@ -46,7 +48,7 @@
         });
       });
       var t, run = function () {
-        try { compute(); } catch (e) { $('res').innerHTML = '<div class="note">Periksa kembali isian Anda.</div>'; }
+        try { compute(); } catch (e) { $('res').innerHTML = '<div class="note">' + tr('Periksa kembali isian Anda.', 'Please check your inputs.') + '</div>'; }
       };
       form.addEventListener('input', function () { clearTimeout(t); t = setTimeout(run, 250); });
       form.addEventListener('change', run);
@@ -56,9 +58,9 @@
         var p = new URLSearchParams();
         ids.forEach(function (id) { var v = val(id); p.set(id, typeof v === 'boolean' ? (v ? '1' : '0') : v); });
         var url = location.origin + location.pathname + '?' + p.toString();
-        var done = function () { share.textContent = '✓ Tautan disalin'; setTimeout(function () { share.textContent = '🔗 Salin tautan hasil'; }, 2000); };
-        if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, function () { prompt('Salin tautan ini:', url); });
-        else prompt('Salin tautan ini:', url);
+        var orig = share.textContent, done = function () { share.textContent = tr('✓ Tautan disalin', '✓ Link copied'); setTimeout(function () { share.textContent = orig; }, 2000); };
+        if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, function () { prompt(tr('Salin tautan ini:', 'Copy this link:'), url); });
+        else prompt(tr('Salin tautan ini:', 'Copy this link:'), url);
       });
       var wa = $('wa');
       if (wa) wa.addEventListener('click', function () {
@@ -66,7 +68,7 @@
         ids.forEach(function (id) { var v = val(id); p.set(id, typeof v === 'boolean' ? (v ? '1' : '0') : v); });
         var url = location.origin + location.pathname + '?' + p.toString();
         var k = document.querySelector('#res .kpi.main'), head = k ? k.querySelector('small').textContent + ': ' + k.querySelector('b').textContent + '\n' : '';
-        window.open('https://wa.me/?text=' + encodeURIComponent(document.title.split(' – ')[0] + '\n' + head + 'Lihat rinciannya: ' + url), '_blank', 'noopener');
+        window.open('https://wa.me/?text=' + encodeURIComponent(document.title.split(' – ')[0] + '\n' + head + tr('Lihat rinciannya: ', 'See the details: ') + url), '_blank', 'noopener');
       });
       var pr = $('print'); if (pr) pr.addEventListener('click', function () { window.print(); });
       run();
@@ -81,7 +83,7 @@
       var t = norm(q.value).split(/\s+/).filter(Boolean);
       if (!t.length) { box.style.display = 'none'; return; }
       var hits = window.SEARCH.filter(function (it) { var h = norm(it.t + ' ' + it.k); return t.every(function (x) { return h.indexOf(x) >= 0; }); }).slice(0, 8);
-      box.innerHTML = hits.length ? hits.map(function (it) { return '<a href="' + it.u + '"><b>' + it.t + '</b><small>' + it.d + '</small></a>'; }).join('') : '<a>Belum ada kalkulator yang cocok.</a>';
+      box.innerHTML = hits.length ? hits.map(function (it) { return '<a href="' + it.u + '"><b>' + it.t + '</b><small>' + it.d + '</small></a>'; }).join('') : '<a>' + tr('Belum ada kalkulator yang cocok.', 'No matching calculator yet.') + '</a>';
       box.style.display = 'block';
     });
     document.addEventListener('click', function (e) { if (!e.target.closest('.search')) box.style.display = 'none'; });
