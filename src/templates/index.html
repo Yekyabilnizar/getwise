@@ -15,8 +15,12 @@
   </div>
 </div></section>
 <div class="stats"><div class="wrap"><div><b data-n="{{ calcs|length }}">{{ calcs|length }}</b> kalkulator</div><div><b data-n="{{ n_articles }}">{{ n_articles }}</b> panduan</div><div><b data-n="2026">2026</b> aturan terbaru</div><div><b><span data-n="100">100</span>%</b> gratis &amp; privat</div></div></div>
+<div class="rules"><div class="wrap"><b>Aturan yang kami pakai:</b><div class="rtrack"><div class="rlist">{% for k in [0, 1] %}{% for r in ["PPh 21 metode TER (PP 58/2023)", "Tarif Pasal 17 UU HPP", "PTKP Rp54 juta", "Batas upah JP Rp11.086.300 (Mar 2026)", "Batas upah BPJS Kesehatan Rp12 juta", "Upah lembur 1/173 (PP 35/2021)", "THR Permenaker 6/2016", "Pajak bunga deposito 20%"] %}<span{% if k %} aria-hidden="true"{% endif %}>✓ {{ r }}</span>{% endfor %}{% endfor %}</div></div></div></div>
 {% endblock %}
 {% block content %}
+<section class="how"><div class="hstep"><span>1</span><div><b>Pilih kalkulator</b><p>Gaji, pajak, BPJS, KPR, kredit, deposito, atau investasi.</p></div></div>
+<div class="hstep"><span>2</span><div><b>Isi angka Anda</b><p>Hasil langsung muncul lengkap dengan langkah hitungnya.</p></div></div>
+<div class="hstep"><span>3</span><div><b>Pelajari &amp; bagikan</b><p>Baca panduannya, lalu salin tautan hasil untuk HRD atau pasangan.</p></div></div></section>
 <section class="cat" id="kalkulator">
 <div class="cat-h"><h2>Semua kalkulator</h2><span>Pilih sesuai kebutuhan Anda</span></div>
 <div class="grid g4">{% for c in calcs %}{% set cat = cats|selectattr('id','equalto',c.cat)|first %}
@@ -44,3 +48,4 @@
     </div></div>
 </div>
 {% endblock %}
+
