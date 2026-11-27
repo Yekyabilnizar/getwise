@@ -15,6 +15,8 @@ from jinja2 import Environment, FileSystemLoader
 
 from articles import ARTICLES, CHARTS
 from articles_en import ART_EN, CHARTS_EN
+from articles_more import CLOSE, EXTRA
+from articles_more_en import CLOSE_EN, EXTRA_EN
 from content import CALCS, CATS, PAGES
 from content_en import CALC_EN, CATS_EN, PAGES_EN
 from i18n import CALC_SLUG_EN, GUIDES, LANGS, PAGE_SLUG, PREFIX, T
@@ -69,8 +71,16 @@ def localized(lang):
         c["photo"] = photo(c["id"])
         if lang == "id":
             c["chip"] = c["short"].replace("Kalkulator ", "").replace("Simulasi ", "")
+    extra = EXTRA if lang == "id" else EXTRA_EN
     for a in arts:
         sid = a.get("id_slug", a["slug"])
+        add = extra.get(sid, [])
+        if add:  # sisipkan bagian tambahan sebelum bagian tips (terakhir)
+            a["body"] = list(a["body"][:-1]) + list(add) + [a["body"][-1]]
+        close = (CLOSE if lang == "id" else CLOSE_EN).get(sid)
+        if close:  # penutup + FAQ tambahan
+            a["body"] = list(a["body"]) + [("Kesimpulan" if lang == "id" else "Conclusion", close[0])]
+            a["faq"] = list(a.get("faq", [])) + list(close[1])
         a["url"] = art_url(lang, sid)
         a["alt"] = {lg: art_url(lg, sid) for lg in LANGS}
         a["cat"] = byid[a["calc"]]["cat"]
